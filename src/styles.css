@@ -797,7 +797,8 @@ img {
   text-align: center;
   animation: splash-in 0.5s ease both;
 }
-.splash__logo svg {
+.splash__logo svg,
+.splash__logo img {
   margin: 0 auto;
   border-radius: 18px;
   box-shadow: 0 12px 34px rgba(21, 146, 79, 0.28);
