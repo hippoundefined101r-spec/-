@@ -1,51 +1,14 @@
-import { useState } from 'react'
+// Официальный логотип КИРГУ (зелёная надпись со срезами) из public/logo.svg.
+// Лежит в репозитории и отдаётся с того же домена → одинаково на ПК и телефоне.
+// Это широкая надпись (≈196×40), поэтому размер задаём по высоте, ширина — авто.
+const LOGO_SRC = `${import.meta.env.BASE_URL}logo.svg`
 
-// Официальный логотип КИРГУ. Загружается в браузере пользователя напрямую с сайта,
-// поэтому отображается ровно как оригинал (со всеми срезами букв).
-// Если не отдастся — показываем векторный фолбэк.
-const OFFICIAL_LOGO = 'https://kirgu.ru/logo.svg'
-
-export function Logo({ size = 120, rounded = true }: { size?: number; rounded?: boolean }) {
-  const [failed, setFailed] = useState(false)
-
-  if (failed) return <LogoVector size={size} rounded={rounded} />
-
+export function Logo({ size = 30 }: { size?: number }) {
   return (
     <img
-      src={OFFICIAL_LOGO}
+      src={LOGO_SRC}
       alt="КИРГУ"
-      onError={() => setFailed(true)}
-      style={{
-        height: size,
-        width: 'auto',
-        maxWidth: '100%',
-        objectFit: 'contain',
-        display: 'block',
-        borderRadius: rounded ? Math.round(size * 0.12) : 0,
-      }}
+      style={{ height: size, width: 'auto', maxWidth: '100%', display: 'block' }}
     />
-  )
-}
-
-// Запасной векторный логотип. Без textLength (его игнорируют некоторые мобильные
-// рендереры, из-за чего надпись вылезала за края и обрезались К и У). Шрифт умещается
-// с запасом по краям.
-function LogoVector({ size, rounded }: { size: number; rounded: boolean }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 100 100" role="img" aria-label="КИРГУ" style={{ display: 'block' }}>
-      <rect width="100" height="100" rx={rounded ? 8 : 0} fill="#15924f" />
-      <text
-        x="50"
-        y="55"
-        textAnchor="middle"
-        dominantBaseline="central"
-        fontFamily="'Manrope', 'Arial Black', Arial, sans-serif"
-        fontWeight={800}
-        fontSize={20}
-        fill="#ffffff"
-      >
-        КИРГУ
-      </text>
-    </svg>
   )
 }

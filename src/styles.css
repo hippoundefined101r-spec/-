@@ -786,7 +786,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f3f9f5;
+  background: #ffffff;
   transition: opacity 0.4s ease;
 }
 .splash--hide {
@@ -797,17 +797,14 @@ img {
   text-align: center;
   animation: splash-in 0.5s ease both;
 }
-.splash__logo svg,
 .splash__logo img {
   margin: 0 auto;
-  border-radius: 18px;
-  box-shadow: 0 12px 34px rgba(21, 146, 79, 0.28);
 }
 .splash__tag {
-  color: #15924f;
+  color: #008954;
   font-size: 14px;
   font-weight: 600;
-  margin-top: 16px;
+  margin-top: 18px;
 }
 @keyframes splash-in {
   from {
