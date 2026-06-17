@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import type { Product } from '../types'
 import { useStore } from '../store/useStore'
-import { formatPrice } from '../utils/format'
+import { formatPrice, cashback } from '../utils/format'
 import { haptic } from '../telegram'
 
 export function ProductCard({ product }: { product: Product }) {
@@ -47,6 +47,9 @@ export function ProductCard({ product }: { product: Product }) {
             <span className="card__oldprice">{formatPrice(product.oldPrice)}</span>
           )}
         </div>
+        {product.inStock && (
+          <span className="cashback">💰 {cashback(product.price).toLocaleString('ru-RU')} сом</span>
+        )}
         <button
           className={`card__btn ${inCart ? 'card__btn--incart' : ''}`}
           disabled={!product.inStock}

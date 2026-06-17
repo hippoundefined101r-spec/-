@@ -21,11 +21,8 @@ export function CatalogPage() {
   return (
     <>
       <header className="app-header">
-        <div className="app-header__brand">
-          <span>ТЕХНО</span>
-          <span className="accent">КЫРГЫЗ</span>
-        </div>
-        <div className="app-header__sub">Электроника и бытовая техника №1 в Кыргызстане</div>
+        <div className="app-header__brand">КИРГУ</div>
+        <div className="app-header__sub">Электроника и бытовая техника для дома</div>
         <div className="search">
           <span>🔍</span>
           <input

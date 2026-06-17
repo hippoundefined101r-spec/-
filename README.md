@@ -1,4 +1,4 @@
-# ТЕХНОКЫРГЫЗ — Telegram Mini App
+# КИРГУ — Telegram Mini App
 
 Telegram Mini App для магазина электроники и бытовой техники (Кыргызстан).
 Frontend-MVP на тестовых данных (моках), без реального бэкенда.

@@ -4,13 +4,17 @@
   --tg-secondary-bg: #f1f3f5;
   --tg-text: #1a1a1a;
   --tg-hint: #8a8f98;
-  --tg-link: #0098ea;
-  --tg-button: #0098ea;
+  --tg-link: #0aa64b;
+  --tg-button: #0aa64b;
   --tg-button-text: #ffffff;
 
-  --brand: #0098ea;
-  --danger: #e53935;
-  --success: #2e9e4f;
+  /* Фирменная палитра КИРГУ */
+  --brand: #0aa64b; /* основной зелёный (логотип, кнопки) */
+  --brand-dark: #008a47; /* глубокий зелёный (блоки/градиенты) */
+  --brand-light: #37c66f; /* светлый зелёный (акценты) */
+  --cashback: #c42a8e; /* малиновый бейдж кэшбэка */
+  --danger: #e3262c; /* красный для скидок */
+  --success: #0aa64b;
   --radius: 14px;
   --bottom-nav-h: 60px;
 }
@@ -82,8 +86,10 @@ img {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-weight: 800;
-  font-size: 19px;
+  font-weight: 900;
+  font-size: 24px;
+  letter-spacing: 1px;
+  color: var(--brand);
 }
 
 .app-header__brand span.accent {
@@ -234,6 +240,19 @@ img {
   text-decoration: line-through;
   margin-left: 6px;
   font-weight: 400;
+}
+
+.cashback {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+  background: var(--cashback);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
 }
 
 .card__btn {

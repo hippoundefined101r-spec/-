@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProduct, products } from '../data/products'
 import { useStore } from '../store/useStore'
-import { formatPrice } from '../utils/format'
+import { formatPrice, cashback } from '../utils/format'
 import { haptic } from '../telegram'
 import { BackLink } from '../components/BackLink'
 import { EmptyState } from '../components/EmptyState'
@@ -49,8 +49,15 @@ export function ProductPage() {
             </span>
           )}
         </div>
-        <div style={{ marginTop: 8, color: product.inStock ? 'var(--success)' : 'var(--danger)' }}>
-          {product.inStock ? '✓ В наличии' : '✕ Нет в наличии'}
+        <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ color: product.inStock ? 'var(--success)' : 'var(--danger)' }}>
+            {product.inStock ? '✓ В наличии' : '✕ Нет в наличии'}
+          </span>
+          {product.inStock && (
+            <span className="cashback">
+              💰 кэшбэк {cashback(product.price).toLocaleString('ru-RU')} сом
+            </span>
+          )}
         </div>
 
         <p style={{ color: 'var(--tg-text)', marginTop: 14 }}>{product.description}</p>

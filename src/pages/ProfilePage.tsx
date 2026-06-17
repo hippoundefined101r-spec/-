@@ -56,7 +56,7 @@ export function ProfilePage() {
       </div>
 
       <div style={{ textAlign: 'center', color: 'var(--tg-hint)', marginTop: 24, fontSize: 12 }}>
-        ТЕХНОКЫРГЫЗ · версия 0.1.0 (демо)
+        КИРГУ · версия 0.1.0 (демо)
       </div>
     </div>
   )
