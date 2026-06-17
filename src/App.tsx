@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { BottomNav } from './components/BottomNav'
+import { Splash } from './components/Splash'
 import { CatalogPage } from './pages/CatalogPage'
 import { RoomsPage } from './pages/RoomsPage'
 import { RoomPage } from './pages/RoomPage'
@@ -17,8 +19,20 @@ export default function App() {
   // Скрываем нижнюю навигацию на «полноэкранных» шагах оформления.
   const hideNav = ['/checkout', '/order-success'].includes(location.pathname)
 
+  // Экран приветствия с логотипом при запуске: показываем ~1.4s, затем плавно убираем.
+  const [splash, setSplash] = useState<'show' | 'hide' | 'gone'>('show')
+  useEffect(() => {
+    const t1 = setTimeout(() => setSplash('hide'), 1400)
+    const t2 = setTimeout(() => setSplash('gone'), 1800)
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+    }
+  }, [])
+
   return (
     <>
+      {splash !== 'gone' && <Splash hiding={splash === 'hide'} />}
       <Routes>
         <Route path="/" element={<CatalogPage />} />
         <Route path="/rooms" element={<RoomsPage />} />

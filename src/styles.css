@@ -777,3 +777,58 @@ img {
   align-items: center;
   gap: 6px;
 }
+
+/* ---------- Экран приветствия (splash) ---------- */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(150deg, #0aa64b 0%, #007e41 100%);
+  transition: opacity 0.4s ease;
+}
+.splash--hide {
+  opacity: 0;
+  pointer-events: none;
+}
+.splash__logo {
+  text-align: center;
+  animation: splash-in 0.5s ease both;
+}
+.splash__badge {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 18px;
+  border-radius: 22px;
+  background: #fff;
+  color: var(--brand);
+  font-size: 50px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+}
+.splash__word {
+  color: #fff;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 6px;
+}
+.splash__tag {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  margin-top: 8px;
+}
+@keyframes splash-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
