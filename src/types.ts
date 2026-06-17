@@ -9,7 +9,7 @@ export interface Product {
   title: string
   categoryId: string
   brand: string
-  /** Цена в сомах (KGS) */
+  /** Цена в рублях (RUB) */
   price: number
   /** Старая цена для отображения скидки (необязательно) */
   oldPrice?: number

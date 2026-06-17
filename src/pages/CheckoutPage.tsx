@@ -77,7 +77,7 @@ export function CheckoutPage() {
           <input
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="+996 700 000 000"
+            placeholder="+7 900 000-00-00"
             inputMode="tel"
           />
         </div>

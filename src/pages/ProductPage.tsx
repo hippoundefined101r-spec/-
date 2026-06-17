@@ -36,7 +36,12 @@ export function ProductPage() {
     <>
       <div className="page">
         <BackLink />
-        <img className="product__img" src={product.image} alt={product.title} />
+        <img
+          className="product__img"
+          src={product.image}
+          alt={product.title}
+          onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+        />
         <h1 className="product__title">{product.title}</h1>
         <div className="card__rating" style={{ fontSize: 14 }}>
           ⭐ {product.rating} · {product.reviews} отзывов · {product.brand}
@@ -55,7 +60,7 @@ export function ProductPage() {
           </span>
           {product.inStock && (
             <span className="cashback">
-              💰 кэшбэк {cashback(product.price).toLocaleString('ru-RU')} сом
+              💰 кэшбэк {cashback(product.price).toLocaleString('ru-RU')} ₽
             </span>
           )}
         </div>

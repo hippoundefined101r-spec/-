@@ -41,8 +41,8 @@ export function ProfilePage() {
 
       <div className="section-title">Помощь</div>
       <div className="menu">
-        <a className="menu__item" href="https://t.me/" target="_blank" rel="noreferrer">
-          💬 <span>Связаться с поддержкой</span>
+        <a className="menu__item" href="tel:88007703003">
+          ☎️ <span>8 (800) 770-30-03</span>
           <span className="count">›</span>
         </a>
         <button className="menu__item">

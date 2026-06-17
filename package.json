@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Telegram Mini App для магазина электроники и бытовой техники (Кыргызстан)",
+  "description": "Telegram Mini App для магазина электроники и бытовой техники КИРГУ (Россия)",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

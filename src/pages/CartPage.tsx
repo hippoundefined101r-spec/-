@@ -35,7 +35,12 @@ export function CartPage() {
           if (!p) return null
           return (
             <div className="cart-item" key={item.productId}>
-              <img className="cart-item__img" src={p.image} alt={p.title} />
+              <img
+                className="cart-item__img"
+                src={p.image}
+                alt={p.title}
+                onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+              />
               <div className="cart-item__info">
                 <div className="cart-item__title">{p.title}</div>
                 <div className="cart-item__price">{formatPrice(p.price * item.qty)}</div>

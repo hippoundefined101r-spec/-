@@ -22,7 +22,13 @@ export function ProductCard({ product }: { product: Product }) {
       <div onClick={() => navigate(`/product/${product.id}`)}>
         {discount > 0 && product.inStock && <div className="badge">−{discount}%</div>}
         {!product.inStock && <div className="badge badge--out">Нет в наличии</div>}
-        <img className="card__img" src={product.image} alt={product.title} loading="lazy" />
+        <img
+          className="card__img"
+          src={product.image}
+          alt={product.title}
+          loading="lazy"
+          onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+        />
       </div>
       <button
         className="card__fav"
@@ -48,7 +54,7 @@ export function ProductCard({ product }: { product: Product }) {
           )}
         </div>
         {product.inStock && (
-          <span className="cashback">💰 {cashback(product.price).toLocaleString('ru-RU')} сом</span>
+          <span className="cashback">💰 {cashback(product.price).toLocaleString('ru-RU')} ₽</span>
         )}
         <button
           className={`card__btn ${inCart ? 'card__btn--incart' : ''}`}
