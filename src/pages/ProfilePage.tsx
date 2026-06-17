@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore'
-import { getTelegramUser } from '../telegram'
+import { getTelegramUser, requestContact, hapticSuccess, haptic } from '../telegram'
+import { api } from '../api/client'
 
 export function ProfilePage() {
   const navigate = useNavigate()
@@ -8,10 +10,34 @@ export function ProfilePage() {
   const favorites = useStore((s) => s.favorites)
   const tgUser = getTelegramUser()
 
+  const [linkState, setLinkState] = useState<'idle' | 'pending' | 'linked' | 'shared' | 'error'>(
+    'idle',
+  )
+
   const name = tgUser
     ? `${tgUser.first_name}${tgUser.last_name ? ' ' + tgUser.last_name : ''}`
     : 'Гость'
   const initial = name.charAt(0).toUpperCase()
+
+  async function linkAccount() {
+    haptic('medium')
+    setLinkState('pending')
+    const shared = await requestContact()
+    if (!shared) {
+      setLinkState('idle')
+      return
+    }
+    try {
+      // Телефон Telegram передаёт боту/бэкенду в подписанных данных.
+      // На бэкенде он сопоставляется с профилем Bitrix.
+      const res = await api.linkContact('')
+      hapticSuccess()
+      setLinkState(res.linked ? 'linked' : 'shared')
+    } catch {
+      // Бэкенд недоступен (например, открыто в обычном браузере) — контакт всё равно получен.
+      setLinkState('shared')
+    }
+  }
 
   return (
     <div className="page">
@@ -23,6 +49,32 @@ export function ProfilePage() {
           {tgUser?.username && <div className="profile-username">@{tgUser.username}</div>}
           {!tgUser && <div className="profile-username">Откройте через Telegram</div>}
         </div>
+      </div>
+
+      {/* Связка аккаунта КИРГУ */}
+      <div className="link-card">
+        {linkState === 'linked' ? (
+          <div className="link-card__ok">✅ Аккаунт КИРГУ привязан — бонусы и история доступны</div>
+        ) : linkState === 'shared' ? (
+          <div className="link-card__ok">
+            ✅ Контакт получен. Профиль КИРГУ подтянется автоматически
+          </div>
+        ) : (
+          <>
+            <div className="link-card__title">Привяжите аккаунт КИРГУ</div>
+            <div className="link-card__sub">
+              Поделитесь номером телефона — подтянем бонусы и историю заказов
+            </div>
+            <button
+              className="btn-primary"
+              style={{ marginTop: 12 }}
+              disabled={linkState === 'pending'}
+              onClick={linkAccount}
+            >
+              {linkState === 'pending' ? 'Запрашиваем…' : 'Поделиться контактом'}
+            </button>
+          </>
+        )}
       </div>
 
       <div className="menu">
@@ -56,7 +108,7 @@ export function ProfilePage() {
       </div>
 
       <div style={{ textAlign: 'center', color: 'var(--tg-hint)', marginTop: 24, fontSize: 12 }}>
-        КИРГУ · версия 0.1.0 (демо)
+        КИРГУ · версия 0.2.0 (демо)
       </div>
     </div>
   )

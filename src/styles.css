@@ -38,7 +38,9 @@ body {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  /* Фирменный гротеск: Gilroy (как на сайте) → Manrope (бесплатный аналог) → system */
+  font-family: 'Gilroy', 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
   background: var(--tg-bg);
   color: var(--tg-text);
   font-size: 15px;
@@ -609,4 +611,154 @@ img {
   color: var(--brand);
   padding: 6px 0;
   margin-bottom: 4px;
+}
+
+/* ---------- Горизонтальные ленты (акции / комнаты) ---------- */
+.strip {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 0 10px;
+  scrollbar-width: none;
+}
+.strip::-webkit-scrollbar {
+  display: none;
+}
+
+.stock-chip {
+  flex: 0 0 auto;
+  min-width: 150px;
+  text-align: left;
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.stock-chip__title {
+  font-weight: 800;
+  font-size: 15px;
+}
+.stock-chip__sub {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.room-chip {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 76px;
+  font-size: 12px;
+  color: var(--tg-text);
+}
+.room-chip__icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--tg-secondary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+/* ---------- Заголовок секции с действием справа ---------- */
+.section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 4px;
+}
+.section-row .section-title {
+  margin: 0;
+}
+.link-more {
+  color: var(--brand);
+  font-size: 14px;
+  font-weight: 600;
+}
+.sort-select {
+  border: none;
+  background: var(--tg-secondary-bg);
+  color: var(--tg-text);
+  font-size: 13px;
+  border-radius: 999px;
+  padding: 7px 10px;
+  font-family: inherit;
+}
+
+/* ---------- Страница комнат (сетка плиток) ---------- */
+.rooms-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 12px;
+}
+.room-tile {
+  background: var(--tg-secondary-bg);
+  border-radius: var(--radius);
+  padding: 22px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.room-tile__icon {
+  font-size: 36px;
+}
+.room-tile__title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--tg-text);
+}
+
+/* ---------- Страница акций ---------- */
+.stocks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+.stock-banner {
+  text-align: left;
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 22px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.stock-banner__title {
+  font-weight: 800;
+  font-size: 19px;
+}
+.stock-banner__sub {
+  font-size: 13px;
+  opacity: 0.92;
+}
+
+/* ---------- Карточка связки аккаунта ---------- */
+.link-card {
+  background: var(--tg-secondary-bg);
+  border: 1px solid var(--brand-light);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.link-card__title {
+  font-weight: 700;
+  font-size: 16px;
+}
+.link-card__sub {
+  color: var(--tg-hint);
+  font-size: 13px;
+  margin-top: 4px;
+}
+.link-card__ok {
+  font-weight: 600;
+  color: var(--brand);
 }

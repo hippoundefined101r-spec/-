@@ -1,9 +1,9 @@
 {
-  "name": "tehno-kg-mini-app",
+  "name": "kirgu-mini-app",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
-  "description": "Telegram Mini App для магазина электроники и бытовой техники КИРГУ (Россия)",
+  "description": "Telegram Mini App для сети КИРГУ: мебель, техника и товары для дома (frontend)",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

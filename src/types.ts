@@ -4,10 +4,26 @@ export interface Category {
   icon: string
 }
 
+export interface Room {
+  id: string
+  title: string
+  icon: string
+}
+
+export interface Stock {
+  id: string
+  title: string
+  subtitle?: string
+  image?: string
+  accent?: string
+}
+
 export interface Product {
   id: string
   title: string
   categoryId: string
+  /** Идентификаторы «комнат», к которым относится товар */
+  rooms: string[]
   brand: string
   /** Цена в рублях (RUB) */
   price: number

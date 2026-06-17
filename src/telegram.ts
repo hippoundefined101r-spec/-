@@ -1,14 +1,23 @@
 // Тонкая обёртка над Telegram Web App SDK.
 // Работает и вне Telegram (в обычном браузере) — тогда часть методов просто no-op.
+//
+// Режим строго фирменного стиля: тему Telegram НЕ применяем к фону/тексту,
+// берём только хаптику, кнопки и безопасные отступы. Палитра — фирменная (styles.css).
+
+export interface TelegramUser {
+  id: number
+  first_name: string
+  last_name?: string
+  username?: string
+}
 
 type TelegramWebApp = {
   ready: () => void
   expand: () => void
+  initData: string
   colorScheme: 'light' | 'dark'
   themeParams: Record<string, string>
-  initDataUnsafe?: {
-    user?: { id: number; first_name: string; last_name?: string; username?: string }
-  }
+  initDataUnsafe?: { user?: TelegramUser }
   MainButton: {
     setText: (t: string) => void
     show: () => void
@@ -28,6 +37,7 @@ type TelegramWebApp = {
     impactOccurred: (style: 'light' | 'medium' | 'heavy') => void
     notificationOccurred: (type: 'error' | 'success' | 'warning') => void
   }
+  requestContact?: (cb: (ok: boolean, event?: unknown) => void) => void
   setHeaderColor?: (color: string) => void
   setBackgroundColor?: (color: string) => void
 }
@@ -44,22 +54,10 @@ export function initTelegram() {
   if (!tg) return
   tg.ready()
   tg.expand()
-  // Применяем цвета темы Telegram к CSS-переменным, если они переданы.
-  const root = document.documentElement
-  const tp = tg.themeParams || {}
-  const map: Record<string, string> = {
-    bg_color: '--tg-bg',
-    secondary_bg_color: '--tg-secondary-bg',
-    text_color: '--tg-text',
-    hint_color: '--tg-hint',
-    link_color: '--tg-link',
-    button_color: '--tg-button',
-    button_text_color: '--tg-button-text',
-  }
-  Object.entries(map).forEach(([k, cssVar]) => {
-    if (tp[k]) root.style.setProperty(cssVar, tp[k])
-  })
-  if (tg.colorScheme === 'dark') root.classList.add('dark')
+  // Строго фирменный стиль: задаём фон/заголовок в брендовый белый,
+  // не перекрашиваем интерфейс под тему Telegram.
+  tg.setBackgroundColor?.('#ffffff')
+  tg.setHeaderColor?.('#ffffff')
 }
 
 export function haptic(style: 'light' | 'medium' | 'heavy' = 'light') {
@@ -70,6 +68,26 @@ export function hapticSuccess() {
   tg?.HapticFeedback?.notificationOccurred('success')
 }
 
-export function getTelegramUser() {
+export function getTelegramUser(): TelegramUser | undefined {
   return tg?.initDataUnsafe?.user
+}
+
+/** Сырая строка initData для авторизации на бэкенде (Authorization: tma <...>). */
+export function getInitDataRaw(): string {
+  return tg?.initData ?? ''
+}
+
+/**
+ * Запрос номера телефона через Telegram (для связки с аккаунтом сайта).
+ * Возвращает true, если пользователь поделился контактом.
+ * Сам номер бэкенд получает из подписанных данных Telegram.
+ */
+export function requestContact(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (!tg?.requestContact) {
+      resolve(false)
+      return
+    }
+    tg.requestContact((ok) => resolve(Boolean(ok)))
+  })
 }

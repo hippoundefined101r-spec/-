@@ -1,8 +1,25 @@
-import type { Product } from '../types'
+import type { Category, Product, Room, Stock } from '../types.js'
 
-// Демо-каталог в структуре kirgu.ru: мебель, техника, товары для дома и детей.
-// Каждый товар привязан к категории и «комнатам». Зеркалит server/src/data/mock.ts.
+// Демо-данные в структуре реального kirgu.ru: верхние категории + «комнаты».
 const img = (seed: string) => `https://picsum.photos/seed/kirgu_${seed}/600/600`
+
+export const categories: Category[] = [
+  { id: 'mebel', title: 'Мебель', icon: '🛋️' },
+  { id: 'tekhnika', title: 'Техника', icon: '🔌' },
+  { id: 'tovary-doma', title: 'Товары для дома', icon: '🏠' },
+  { id: 'tovary-deti', title: 'Товары для детей', icon: '🧸' },
+]
+
+export const rooms: Room[] = [
+  { id: 'gostinaya', title: 'Гостиная', icon: '🛋️' },
+  { id: 'spalnya', title: 'Спальня', icon: '🛏️' },
+  { id: 'detskaya', title: 'Детская', icon: '🧸' },
+  { id: 'kuhnya', title: 'Кухня', icon: '🍳' },
+  { id: 'prihozhaya', title: 'Прихожая', icon: '🚪' },
+  { id: 'dom-sad', title: 'Дом и сад', icon: '🌳' },
+  { id: 'ofis', title: 'Офис', icon: '💼' },
+  { id: 'vannaya', title: 'Ванная', icon: '🛁' },
+]
 
 export const products: Product[] = [
   {
@@ -17,8 +34,7 @@ export const products: Product[] = [
     reviews: 84,
     image: img('divan'),
     inStock: true,
-    description:
-      'Угловой диван с механизмом «дельфин» и ёмким ящиком для белья. Обивка — износостойкая рогожка.',
+    description: 'Угловой диван с механизмом «дельфин» и ёмким ящиком для белья. Обивка — износостойкая рогожка.',
     specs: [
       { label: 'Механизм', value: 'Дельфин' },
       { label: 'Спальное место', value: '140 × 200 см' },
@@ -314,4 +330,9 @@ export const products: Product[] = [
   },
 ]
 
-export const getProduct = (id: string) => products.find((p) => p.id === id)
+export const stocks: Stock[] = [
+  { id: 'rassrochka', title: 'Рассрочка 0-0-12', subtitle: 'На технику и мебель', image: img('promo1'), accent: '#0AA64B' },
+  { id: 'frozen', title: 'Заморозили цены', subtitle: 'до конца месяца', image: img('promo2'), accent: '#2FE196' },
+  { id: 'trade-in', title: 'Трейд-ин', subtitle: 'Старая техника в зачёт', image: img('promo3'), accent: '#008A47' },
+  { id: 'gift', title: 'Подарок к покупке', subtitle: 'При заказе кухни', image: img('promo4'), accent: '#C42A8E' },
+]

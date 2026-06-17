@@ -4,7 +4,8 @@ import { haptic } from '../telegram'
 
 const items = [
   { to: '/', icon: '🏠', label: 'Каталог', end: true },
-  { to: '/favorites', icon: '❤️', label: 'Избранное', end: false },
+  { to: '/rooms', icon: '🚪', label: 'Комнаты', end: false },
+  { to: '/stocks', icon: '🏷️', label: 'Акции', end: false },
   { to: '/cart', icon: '🛒', label: 'Корзина', end: false },
   { to: '/profile', icon: '👤', label: 'Профиль', end: false },
 ]

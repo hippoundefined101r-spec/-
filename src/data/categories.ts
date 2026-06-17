@@ -1,12 +1,9 @@
 import type { Category } from '../types'
 
+// Верхние категории — как на kirgu.ru
 export const categories: Category[] = [
-  { id: 'smartphones', title: 'Смартфоны', icon: '📱' },
-  { id: 'laptops', title: 'Ноутбуки', icon: '💻' },
-  { id: 'tv', title: 'Телевизоры', icon: '📺' },
-  { id: 'appliances', title: 'Бытовая техника', icon: '🧺' },
-  { id: 'audio', title: 'Аудио', icon: '🎧' },
-  { id: 'gaming', title: 'Игры', icon: '🎮' },
-  { id: 'tablets', title: 'Планшеты', icon: '📲' },
-  { id: 'accessories', title: 'Аксессуары', icon: '🔌' },
+  { id: 'mebel', title: 'Мебель', icon: '🛋️' },
+  { id: 'tekhnika', title: 'Техника', icon: '🔌' },
+  { id: 'tovary-doma', title: 'Товары для дома', icon: '🏠' },
+  { id: 'tovary-deti', title: 'Товары для детей', icon: '🧸' },
 ]
