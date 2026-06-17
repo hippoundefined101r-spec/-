@@ -1,18 +1,21 @@
 import { useNavigate } from 'react-router-dom'
+import type { LucideIcon } from 'lucide-react'
 
 interface Props {
-  icon: string
+  icon: LucideIcon
   title: string
   text?: string
   actionLabel?: string
   actionTo?: string
 }
 
-export function EmptyState({ icon, title, text, actionLabel, actionTo }: Props) {
+export function EmptyState({ icon: Icon, title, text, actionLabel, actionTo }: Props) {
   const navigate = useNavigate()
   return (
     <div className="empty">
-      <div className="empty__icon">{icon}</div>
+      <div className="empty__icon">
+        <Icon size={44} strokeWidth={1.5} color="#c2c9d1" />
+      </div>
       <div style={{ fontWeight: 600, color: 'var(--tg-text)', marginBottom: 6 }}>{title}</div>
       {text && <div>{text}</div>}
       {actionLabel && actionTo && (

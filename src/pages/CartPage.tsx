@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useStore, useCartTotal } from '../store/useStore'
 import { getProduct } from '../data/products'
 import { formatPrice } from '../utils/format'
+import { ShoppingCart, Trash2 } from 'lucide-react'
 import { haptic } from '../telegram'
 import { EmptyState } from '../components/EmptyState'
 
@@ -16,7 +17,7 @@ export function CartPage() {
     return (
       <div className="page">
         <EmptyState
-          icon="🛒"
+          icon={ShoppingCart}
           title="Корзина пуста"
           text="Добавьте товары из каталога"
           actionLabel="Перейти в каталог"
@@ -72,7 +73,7 @@ export function CartPage() {
                 }}
                 aria-label="Удалить"
               >
-                🗑
+                <Trash2 size={20} color="#8a8f98" />
               </button>
             </div>
           )

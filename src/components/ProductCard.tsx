@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import { Heart, Star } from 'lucide-react'
 import type { Product } from '../types'
 import { useStore } from '../store/useStore'
 import { formatPrice, cashback } from '../utils/format'
@@ -38,14 +39,15 @@ export function ProductCard({ product }: { product: Product }) {
         }}
         aria-label="В избранное"
       >
-        {isFav ? '❤️' : '🤍'}
+        <Heart size={18} strokeWidth={2} fill={isFav ? '#e3262c' : 'none'} color={isFav ? '#e3262c' : '#8a8f98'} />
       </button>
       <div className="card__body">
         <div className="card__title" onClick={() => navigate(`/product/${product.id}`)}>
           {product.title}
         </div>
         <div className="card__rating">
-          ⭐ {product.rating} · {product.reviews} отз.
+          <Star size={13} fill="#f5a623" color="#f5a623" />
+          {product.rating} · {product.reviews} отз.
         </div>
         <div className="card__price">
           {formatPrice(product.price)}
@@ -54,7 +56,7 @@ export function ProductCard({ product }: { product: Product }) {
           )}
         </div>
         {product.inStock && (
-          <span className="cashback">💰 {cashback(product.price).toLocaleString('ru-RU')} ₽</span>
+          <span className="cashback">+{cashback(product.price).toLocaleString('ru-RU')} ₽ бонусами</span>
         )}
         <button
           className={`card__btn ${inCart ? 'card__btn--incart' : ''}`}

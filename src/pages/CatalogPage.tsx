@@ -7,6 +7,8 @@ import { stocks } from '../data/stocks'
 import { ProductCard } from '../components/ProductCard'
 import { EmptyState } from '../components/EmptyState'
 import { haptic } from '../telegram'
+import { categoryIcon, roomIcon } from '../icons'
+import { Search, X } from 'lucide-react'
 
 type Sort = 'popular' | 'price_asc' | 'price_desc' | 'discount'
 
@@ -42,13 +44,13 @@ export function CatalogPage() {
         <div className="app-header__brand">КИРГУ</div>
         <div className="app-header__sub">Мебель, техника и товары для дома</div>
         <div className="search">
-          <span>🔍</span>
+          <Search size={18} color="#8a8f98" />
           <input
             placeholder="Поиск товаров и брендов"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          {query && <span onClick={() => setQuery('')}>✕</span>}
+          {query && <X size={18} color="#8a8f98" onClick={() => setQuery('')} />}
         </div>
         <div className="chips">
           <button
@@ -57,16 +59,19 @@ export function CatalogPage() {
           >
             Все
           </button>
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              className={`chip ${activeCat === c.id ? 'active' : ''}`}
-              onClick={() => setActiveCat(activeCat === c.id ? null : c.id)}
-            >
-              <span>{c.icon}</span>
-              {c.title}
-            </button>
-          ))}
+          {categories.map((c) => {
+            const Ic = categoryIcon[c.id]
+            return (
+              <button
+                key={c.id}
+                className={`chip ${activeCat === c.id ? 'active' : ''}`}
+                onClick={() => setActiveCat(activeCat === c.id ? null : c.id)}
+              >
+                {Ic && <Ic size={15} strokeWidth={2} />}
+                {c.title}
+              </button>
+            )
+          })}
         </div>
       </header>
 
@@ -99,19 +104,24 @@ export function CatalogPage() {
               </button>
             </div>
             <div className="strip">
-              {rooms.map((r) => (
-                <button
-                  key={r.id}
-                  className="room-chip"
-                  onClick={() => {
-                    haptic('light')
-                    navigate(`/room/${r.id}`)
-                  }}
-                >
-                  <span className="room-chip__icon">{r.icon}</span>
-                  <span>{r.title}</span>
-                </button>
-              ))}
+              {rooms.map((r) => {
+                const Ic = roomIcon[r.id]
+                return (
+                  <button
+                    key={r.id}
+                    className="room-chip"
+                    onClick={() => {
+                      haptic('light')
+                      navigate(`/room/${r.id}`)
+                    }}
+                  >
+                    <span className="room-chip__icon">
+                      {Ic && <Ic size={24} strokeWidth={1.8} color="#0aa64b" />}
+                    </span>
+                    <span>{r.title}</span>
+                  </button>
+                )
+              })}
             </div>
           </>
         )}
@@ -131,7 +141,7 @@ export function CatalogPage() {
         </div>
 
         {filtered.length === 0 ? (
-          <EmptyState icon="🔍" title="Ничего не найдено" text="Попробуйте изменить запрос" />
+          <EmptyState icon={Search} title="Ничего не найдено" text="Попробуйте изменить запрос" />
         ) : (
           <div className="grid">
             {filtered.map((p) => (

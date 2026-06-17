@@ -1,43 +1,19 @@
 import type { Category, Product, Room, Stock } from '../types.js'
 
 // Демо-данные в структуре реального kirgu.ru: верхние категории + «комнаты».
-// Фото — брендовые SVG-плейсхолдеры с иконкой категории (всегда грузятся, всегда
-// соответствуют товару). На этапе 2 заменяются реальными изображениями из Bitrix.
-const ICONS: Record<string, string> = {
-  divan: '🛋️',
-  krovat: '🛏️',
-  shkaf: '🚪',
-  kuhgarn: '🍽️',
-  stol: '🪑',
-  holod: '🧊',
-  stiralka: '🌀',
-  tv: '📺',
-  kond: '❄️',
-  multi: '🍲',
-  posuda: '🍳',
-  tekstil: '🛌',
-  lustra: '💡',
-  detkrovat: '👶',
-  kolyaska: '🍼',
-  sad: '🌳',
-  kreslo: '💺',
-  promo1: '🏷️',
-  promo2: '🔥',
-  promo3: '📺',
-  promo4: '🎁',
-}
-const img = (seed: string) => {
-  const icon = ICONS[seed] ?? '🛒'
-  const svg =
+// Фото — сдержанный брендовый плейсхолдер (нейтральный фон + монограмма КИРГУ).
+// На этапе 2 заменяется реальными изображениями из Bitrix.
+const PLACEHOLDER =
+  `data:image/svg+xml;utf8,` +
+  encodeURIComponent(
     `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'>` +
-    `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
-    `<stop offset='0' stop-color='#eafaf1'/><stop offset='1' stop-color='#d6f3e3'/>` +
-    `</linearGradient></defs>` +
-    `<rect width='600' height='600' fill='url(#g)'/>` +
-    `<text x='300' y='300' font-size='240' text-anchor='middle' dominant-baseline='central'>${icon}</text>` +
-    `</svg>`
-  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
-}
+      `<rect width='600' height='600' fill='#eef1f4'/>` +
+      `<circle cx='300' cy='262' r='66' fill='#ffffff' stroke='#dbe2e8' stroke-width='2'/>` +
+      `<text x='300' y='264' font-family='Manrope, Arial, sans-serif' font-size='52' font-weight='800' fill='#0aa64b' text-anchor='middle' dominant-baseline='central'>К</text>` +
+      `<text x='300' y='372' font-family='Manrope, Arial, sans-serif' font-size='30' font-weight='700' letter-spacing='5' fill='#9aa7b2' text-anchor='middle'>КИРГУ</text>` +
+      `</svg>`,
+  )
+const img = (_seed: string) => PLACEHOLDER
 
 export const categories: Category[] = [
   { id: 'mebel', title: 'Мебель', icon: '🛋️' },

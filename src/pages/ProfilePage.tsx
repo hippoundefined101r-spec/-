@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Package, Heart, ShoppingCart, Phone, MapPin, Truck, ChevronRight, CheckCircle2 } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { getTelegramUser, requestContact, hapticSuccess, haptic } from '../telegram'
 import { api } from '../api/client'
@@ -54,10 +55,12 @@ export function ProfilePage() {
       {/* Связка аккаунта КИРГУ */}
       <div className="link-card">
         {linkState === 'linked' ? (
-          <div className="link-card__ok">✅ Аккаунт КИРГУ привязан — бонусы и история доступны</div>
+          <div className="link-card__ok">
+            <CheckCircle2 size={18} /> Аккаунт КИРГУ привязан — бонусы и история доступны
+          </div>
         ) : linkState === 'shared' ? (
           <div className="link-card__ok">
-            ✅ Контакт получен. Профиль КИРГУ подтянется автоматически
+            <CheckCircle2 size={18} /> Контакт получен. Профиль КИРГУ подтянется автоматически
           </div>
         ) : (
           <>
@@ -79,31 +82,37 @@ export function ProfilePage() {
 
       <div className="menu">
         <button className="menu__item" onClick={() => navigate('/orders')}>
-          📦 <span>Мои заказы</span>
+          <Package size={20} strokeWidth={1.8} color="#0aa64b" />
+          <span>Мои заказы</span>
           <span className="count">{orders.length}</span>
         </button>
         <button className="menu__item" onClick={() => navigate('/favorites')}>
-          ❤️ <span>Избранное</span>
+          <Heart size={20} strokeWidth={1.8} color="#0aa64b" />
+          <span>Избранное</span>
           <span className="count">{favorites.length}</span>
         </button>
         <button className="menu__item" onClick={() => navigate('/cart')}>
-          🛒 <span>Корзина</span>
+          <ShoppingCart size={20} strokeWidth={1.8} color="#0aa64b" />
+          <span>Корзина</span>
         </button>
       </div>
 
       <div className="section-title">Помощь</div>
       <div className="menu">
         <a className="menu__item" href="tel:88007703003">
-          ☎️ <span>8 (800) 770-30-03</span>
-          <span className="count">›</span>
+          <Phone size={20} strokeWidth={1.8} color="#0aa64b" />
+          <span>8 (800) 770-30-03</span>
+          <ChevronRight size={18} color="#c2c9d1" className="count" />
         </a>
         <button className="menu__item">
-          📍 <span>Адреса магазинов</span>
-          <span className="count">›</span>
+          <MapPin size={20} strokeWidth={1.8} color="#0aa64b" />
+          <span>Адреса магазинов</span>
+          <ChevronRight size={18} color="#c2c9d1" className="count" />
         </button>
         <button className="menu__item">
-          🚚 <span>Условия доставки</span>
-          <span className="count">›</span>
+          <Truck size={20} strokeWidth={1.8} color="#0aa64b" />
+          <span>Условия доставки</span>
+          <ChevronRight size={18} color="#c2c9d1" className="count" />
         </button>
       </div>
 

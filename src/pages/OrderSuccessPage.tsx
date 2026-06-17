@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { CheckCircle2 } from 'lucide-react'
 
 export function OrderSuccessPage() {
   const navigate = useNavigate()
@@ -8,7 +9,9 @@ export function OrderSuccessPage() {
   return (
     <div className="page">
       <div className="empty" style={{ paddingTop: 80 }}>
-        <div className="empty__icon">✅</div>
+        <div className="empty__icon">
+          <CheckCircle2 size={56} strokeWidth={1.6} color="#0aa64b" />
+        </div>
         <div style={{ fontWeight: 700, fontSize: 20, color: 'var(--tg-text)', marginBottom: 8 }}>
           Заказ оформлен!
         </div>

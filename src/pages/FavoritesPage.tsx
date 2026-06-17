@@ -1,3 +1,4 @@
+import { Heart } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { getProduct } from '../data/products'
 import { ProductCard } from '../components/ProductCard'
@@ -12,7 +13,7 @@ export function FavoritesPage() {
       <h2 style={{ marginTop: 4 }}>Избранное</h2>
       {items.length === 0 ? (
         <EmptyState
-          icon="❤️"
+          icon={Heart}
           title="В избранном пусто"
           text="Нажмите на сердечко у товара, чтобы сохранить его"
           actionLabel="В каталог"

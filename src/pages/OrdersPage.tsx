@@ -1,3 +1,4 @@
+import { Package } from 'lucide-react'
 import { useStore } from '../store/useStore'
 import { formatPrice, formatDate } from '../utils/format'
 import { BackLink } from '../components/BackLink'
@@ -18,7 +19,7 @@ export function OrdersPage() {
       <h2 style={{ marginTop: 4 }}>Мои заказы</h2>
       {orders.length === 0 ? (
         <EmptyState
-          icon="📦"
+          icon={Package}
           title="Заказов пока нет"
           text="Оформите первый заказ в каталоге"
           actionLabel="В каталог"

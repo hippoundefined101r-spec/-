@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { PackageX, Star, Heart, Check, X } from 'lucide-react'
 import { getProduct, products } from '../data/products'
 import { useStore } from '../store/useStore'
 import { formatPrice, cashback } from '../utils/format'
@@ -21,7 +22,7 @@ export function ProductPage() {
     return (
       <div className="page">
         <BackLink />
-        <EmptyState icon="📦" title="Товар не найден" actionLabel="В каталог" actionTo="/" />
+        <EmptyState icon={PackageX} title="Товар не найден" actionLabel="В каталог" actionTo="/" />
       </div>
     )
   }
@@ -44,7 +45,8 @@ export function ProductPage() {
         />
         <h1 className="product__title">{product.title}</h1>
         <div className="card__rating" style={{ fontSize: 14 }}>
-          ⭐ {product.rating} · {product.reviews} отзывов · {product.brand}
+          <Star size={15} fill="#f5a623" color="#f5a623" />
+          {product.rating} · {product.reviews} отзывов · {product.brand}
         </div>
         <div style={{ marginTop: 10 }}>
           <span className="product__price">{formatPrice(product.price)}</span>
@@ -55,12 +57,20 @@ export function ProductPage() {
           )}
         </div>
         <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ color: product.inStock ? 'var(--success)' : 'var(--danger)' }}>
-            {product.inStock ? '✓ В наличии' : '✕ Нет в наличии'}
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 4,
+              color: product.inStock ? 'var(--success)' : 'var(--danger)',
+            }}
+          >
+            {product.inStock ? <Check size={16} /> : <X size={16} />}
+            {product.inStock ? 'В наличии' : 'Нет в наличии'}
           </span>
           {product.inStock && (
             <span className="cashback">
-              💰 кэшбэк {cashback(product.price).toLocaleString('ru-RU')} ₽
+              +{cashback(product.price).toLocaleString('ru-RU')} ₽ бонусами
             </span>
           )}
         </div>
@@ -93,13 +103,14 @@ export function ProductPage() {
         <div style={{ display: 'flex', gap: 10 }}>
           <button
             className="btn-secondary"
-            style={{ flex: '0 0 56px' }}
+            style={{ flex: '0 0 56px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             onClick={() => {
               haptic('light')
               toggleFavorite(product.id)
             }}
+            aria-label="В избранное"
           >
-            {isFav ? '❤️' : '🤍'}
+            <Heart size={22} fill={isFav ? '#e3262c' : 'none'} color={isFav ? '#e3262c' : '#8a8f98'} />
           </button>
           <button
             className="btn-primary"

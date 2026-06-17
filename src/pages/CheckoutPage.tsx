@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Truck, Store, Banknote, CreditCard, ShoppingCart } from 'lucide-react'
 import { useStore, useCartTotal } from '../store/useStore'
 import { getProduct } from '../data/products'
 import { formatPrice } from '../utils/format'
@@ -26,7 +27,7 @@ export function CheckoutPage() {
     return (
       <div className="page">
         <BackLink />
-        <EmptyState icon="🛒" title="Корзина пуста" actionLabel="В каталог" actionTo="/" />
+        <EmptyState icon={ShoppingCart} title="Корзина пуста" actionLabel="В каталог" actionTo="/" />
       </div>
     )
   }
@@ -88,13 +89,13 @@ export function CheckoutPage() {
             className={`radio ${delivery === 'courier' ? 'active' : ''}`}
             onClick={() => setDelivery('courier')}
           >
-            🚚 Доставка
+            <Truck size={18} /> Доставка
           </button>
           <button
             className={`radio ${delivery === 'pickup' ? 'active' : ''}`}
             onClick={() => setDelivery('pickup')}
           >
-            🏬 Самовывоз
+            <Store size={18} /> Самовывоз
           </button>
         </div>
 
@@ -116,13 +117,13 @@ export function CheckoutPage() {
             className={`radio ${payment === 'cash' ? 'active' : ''}`}
             onClick={() => setPayment('cash')}
           >
-            💵 Наличными
+            <Banknote size={18} /> Наличными
           </button>
           <button
             className={`radio ${payment === 'card' ? 'active' : ''}`}
             onClick={() => setPayment('card')}
           >
-            💳 Картой
+            <CreditCard size={18} /> Картой
           </button>
         </div>
 
