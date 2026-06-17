@@ -1,12 +1,17 @@
 import { stocks } from '../data/stocks'
 import { haptic } from '../telegram'
+import { Logo } from '../components/Logo'
 
 export function StocksPage() {
   return (
     <>
       <header className="app-header">
-        <div className="app-header__brand">КИРГУ</div>
-        <div className="app-header__sub">Акции и скидки</div>
+        <div className="app-header__brand">
+          <Logo size={34} />
+          <span className="app-header__sub" style={{ margin: 0 }}>
+            Акции и скидки
+          </span>
+        </div>
       </header>
       <div className="page">
         <div className="stocks-list">

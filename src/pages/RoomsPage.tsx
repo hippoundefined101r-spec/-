@@ -2,14 +2,19 @@ import { useNavigate } from 'react-router-dom'
 import { rooms } from '../data/rooms'
 import { roomIcon } from '../icons'
 import { haptic } from '../telegram'
+import { Logo } from '../components/Logo'
 
 export function RoomsPage() {
   const navigate = useNavigate()
   return (
     <>
       <header className="app-header">
-        <div className="app-header__brand">КИРГУ</div>
-        <div className="app-header__sub">Покупки по комнатам</div>
+        <div className="app-header__brand">
+          <Logo size={34} />
+          <span className="app-header__sub" style={{ margin: 0 }}>
+            Покупки по комнатам
+          </span>
+        </div>
       </header>
       <div className="page">
         <div className="rooms-grid">

@@ -9,6 +9,7 @@ import { EmptyState } from '../components/EmptyState'
 import { haptic } from '../telegram'
 import { categoryIcon, roomIcon } from '../icons'
 import { Search, X } from 'lucide-react'
+import { Logo } from '../components/Logo'
 
 type Sort = 'popular' | 'price_asc' | 'price_desc' | 'discount'
 
@@ -41,8 +42,12 @@ export function CatalogPage() {
   return (
     <>
       <header className="app-header">
-        <div className="app-header__brand">КИРГУ</div>
-        <div className="app-header__sub">Мебель, техника и товары для дома</div>
+        <div className="app-header__brand">
+          <Logo size={34} />
+          <span className="app-header__sub" style={{ margin: 0 }}>
+            Мебель, техника и товары для дома
+          </span>
+        </div>
         <div className="search">
           <Search size={18} color="#8a8f98" />
           <input

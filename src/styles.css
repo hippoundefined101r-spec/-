@@ -786,7 +786,7 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(150deg, #0aa64b 0%, #007e41 100%);
+  background: #f3f9f5;
   transition: opacity 0.4s ease;
 }
 .splash--hide {
@@ -797,30 +797,16 @@ img {
   text-align: center;
   animation: splash-in 0.5s ease both;
 }
-.splash__badge {
-  width: 88px;
-  height: 88px;
-  margin: 0 auto 18px;
-  border-radius: 22px;
-  background: #fff;
-  color: var(--brand);
-  font-size: 50px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-}
-.splash__word {
-  color: #fff;
-  font-size: 34px;
-  font-weight: 800;
-  letter-spacing: 6px;
+.splash__logo svg {
+  margin: 0 auto;
+  border-radius: 18px;
+  box-shadow: 0 12px 34px rgba(21, 146, 79, 0.28);
 }
 .splash__tag {
-  color: rgba(255, 255, 255, 0.85);
+  color: #15924f;
   font-size: 14px;
-  margin-top: 8px;
+  font-weight: 600;
+  margin-top: 16px;
 }
 @keyframes splash-in {
   from {
