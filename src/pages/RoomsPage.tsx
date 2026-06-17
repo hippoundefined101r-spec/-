@@ -10,11 +10,9 @@ export function RoomsPage() {
     <>
       <header className="app-header">
         <div className="app-header__brand">
-          <Logo size={34} />
-          <span className="app-header__sub" style={{ margin: 0 }}>
-            Покупки по комнатам
-          </span>
+          <Logo size={32} />
         </div>
+        <div className="app-header__sub">Покупки по комнатам</div>
       </header>
       <div className="page">
         <div className="rooms-grid">

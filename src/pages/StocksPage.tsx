@@ -7,11 +7,9 @@ export function StocksPage() {
     <>
       <header className="app-header">
         <div className="app-header__brand">
-          <Logo size={34} />
-          <span className="app-header__sub" style={{ margin: 0 }}>
-            Акции и скидки
-          </span>
+          <Logo size={32} />
         </div>
+        <div className="app-header__sub">Акции и скидки</div>
       </header>
       <div className="page">
         <div className="stocks-list">

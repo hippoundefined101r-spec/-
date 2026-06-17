@@ -43,11 +43,9 @@ export function CatalogPage() {
     <>
       <header className="app-header">
         <div className="app-header__brand">
-          <Logo size={34} />
-          <span className="app-header__sub" style={{ margin: 0 }}>
-            Мебель, техника и товары для дома
-          </span>
+          <Logo size={32} />
         </div>
+        <div className="app-header__sub">Мебель, техника и товары для дома</div>
         <div className="search">
           <Search size={18} color="#8a8f98" />
           <input
