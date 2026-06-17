@@ -1,38 +1,43 @@
 import type { Category, Product, Room, Stock } from '../types.js'
 
 // Демо-данные в структуре реального kirgu.ru: верхние категории + «комнаты».
-// Фото — тематические по ключевым словам через LoremFlickr (реальные снимки Flickr).
-// Детерминированно: один товар → одно фото. На этапе 2 заменяются картинками из Bitrix.
-const KEYWORDS: Record<string, string> = {
-  divan: 'sofa',
-  krovat: 'bed',
-  shkaf: 'wardrobe',
-  kuhgarn: 'kitchen',
-  stol: 'dining,table',
-  holod: 'refrigerator',
-  stiralka: 'washing,machine',
-  tv: 'television',
-  kond: 'air,conditioner',
-  multi: 'kitchen,appliance',
-  posuda: 'cookware',
-  tekstil: 'bedding',
-  lustra: 'chandelier',
-  detkrovat: 'crib',
-  kolyaska: 'stroller',
-  sad: 'garden,furniture',
-  kreslo: 'office,chair',
-  promo1: 'furniture,sale',
-  promo2: 'home,appliance',
-  promo3: 'television',
-  promo4: 'kitchen',
+// Фото — брендовые SVG-плейсхолдеры с иконкой категории (всегда грузятся, всегда
+// соответствуют товару). На этапе 2 заменяются реальными изображениями из Bitrix.
+const ICONS: Record<string, string> = {
+  divan: '🛋️',
+  krovat: '🛏️',
+  shkaf: '🚪',
+  kuhgarn: '🍽️',
+  stol: '🪑',
+  holod: '🧊',
+  stiralka: '🌀',
+  tv: '📺',
+  kond: '❄️',
+  multi: '🍲',
+  posuda: '🍳',
+  tekstil: '🛌',
+  lustra: '💡',
+  detkrovat: '👶',
+  kolyaska: '🍼',
+  sad: '🌳',
+  kreslo: '💺',
+  promo1: '🏷️',
+  promo2: '🔥',
+  promo3: '📺',
+  promo4: '🎁',
 }
-const lock = (s: string) => {
-  let h = 0
-  for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0
-  return h % 1000
+const img = (seed: string) => {
+  const icon = ICONS[seed] ?? '🛒'
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'>` +
+    `<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>` +
+    `<stop offset='0' stop-color='#eafaf1'/><stop offset='1' stop-color='#d6f3e3'/>` +
+    `</linearGradient></defs>` +
+    `<rect width='600' height='600' fill='url(#g)'/>` +
+    `<text x='300' y='300' font-size='240' text-anchor='middle' dominant-baseline='central'>${icon}</text>` +
+    `</svg>`
+  return `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`
 }
-const img = (seed: string) =>
-  `https://loremflickr.com/600/600/${KEYWORDS[seed] ?? seed}?lock=${lock(seed)}`
 
 export const categories: Category[] = [
   { id: 'mebel', title: 'Мебель', icon: '🛋️' },
