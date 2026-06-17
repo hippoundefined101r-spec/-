@@ -22,8 +22,8 @@ export default function App() {
   // Экран приветствия с логотипом при запуске: показываем ~1.4s, затем плавно убираем.
   const [splash, setSplash] = useState<'show' | 'hide' | 'gone'>('show')
   useEffect(() => {
-    const t1 = setTimeout(() => setSplash('hide'), 2000)
-    const t2 = setTimeout(() => setSplash('gone'), 2400)
+    const t1 = setTimeout(() => setSplash('hide'), 2500)
+    const t2 = setTimeout(() => setSplash('gone'), 2900)
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
