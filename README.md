@@ -62,10 +62,20 @@ npm run build && npm start  # продакшен
 
 ## Подключение к Telegram
 
-1. Соберите фронт (`npm run build`) и задеплойте `dist/` на HTTPS-хостинг.
-2. Поднимите backend на HTTPS, задайте `BOT_TOKEN` и `CORS_ORIGIN` (домен Mini App).
-3. В [@BotFather](https://t.me/BotFather) через `/newapp` (или `/setmenubutton`)
-   укажите URL вашего Mini App.
+1. Соберите фронт (`npm run build`) и задеплойте `dist/` на HTTPS (см. workflow GitHub Pages).
+2. Настройте бота одной командой (токен из [@BotFather](https://t.me/BotFather), **не коммитим**):
+
+   ```bash
+   cd server
+   BOT_TOKEN=ваш_токен node scripts/setup-bot.mjs
+   # или указать свой URL Mini App:
+   BOT_TOKEN=ваш_токен MINIAPP_URL=https://пример/ node scripts/setup-bot.mjs
+   ```
+
+   Скрипт пропишет боту кнопку-меню с Mini App, команды (/start, /help) и описания.
+   По умолчанию URL = `https://hippoundefined101r-spec.github.io/-/`.
+3. (Опционально, для живого бэкенда) поднимите `server/` на HTTPS, задайте `BOT_TOKEN`
+   и `CORS_ORIGIN`, на фронте — `VITE_API_BASE`.
 
 ## Структура
 
