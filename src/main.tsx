@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { HashRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 import { initTelegram } from './telegram'
 import './styles.css'
@@ -10,9 +10,13 @@ initTelegram()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* HashRouter — чтобы маршруты работали без серверной настройки rewrite. */}
-    <HashRouter>
+    {/*
+      MemoryRouter, а не HashRouter: Telegram открывает Mini App с хвостом
+      #tgWebAppData=... в адресе. HashRouter принял бы его за маршрут и показал
+      пустой экран. Навигация в приложении — программная (navigate), URL не нужен.
+    */}
+    <MemoryRouter>
       <App />
-    </HashRouter>
+    </MemoryRouter>
   </React.StrictMode>,
 )
