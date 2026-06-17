@@ -2,7 +2,36 @@ import type { Product } from '../types'
 
 // Демо-каталог в структуре kirgu.ru: мебель, техника, товары для дома и детей.
 // Каждый товар привязан к категории и «комнатам». Зеркалит server/src/data/mock.ts.
-const img = (seed: string) => `https://picsum.photos/seed/kirgu_${seed}/600/600`
+//
+// Фото — тематические по ключевым словам через LoremFlickr (реальные снимки Flickr,
+// без API-ключа). Детерминированно: один товар → одно фото. На этапе 2 заменяются
+// картинками из Bitrix (/upload/iblock/...).
+const KEYWORDS: Record<string, string> = {
+  divan: 'sofa',
+  krovat: 'bed',
+  shkaf: 'wardrobe',
+  kuhgarn: 'kitchen',
+  stol: 'dining,table',
+  holod: 'refrigerator',
+  stiralka: 'washing,machine',
+  tv: 'television',
+  kond: 'air,conditioner',
+  multi: 'kitchen,appliance',
+  posuda: 'cookware',
+  tekstil: 'bedding',
+  lustra: 'chandelier',
+  detkrovat: 'crib',
+  kolyaska: 'stroller',
+  sad: 'garden,furniture',
+  kreslo: 'office,chair',
+}
+const lock = (s: string) => {
+  let h = 0
+  for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0
+  return h % 1000
+}
+const img = (seed: string) =>
+  `https://loremflickr.com/600/600/${KEYWORDS[seed] ?? seed}?lock=${lock(seed)}`
 
 export const products: Product[] = [
   {
