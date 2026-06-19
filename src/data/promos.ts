@@ -7,7 +7,7 @@ export const promos: Promo[] = [
     subtitle: 'На смартфоны и технику — до 24 месяцев без переплат',
     cta: 'Купить в рассрочку',
     to: '/catalog',
-    gradient: 'linear-gradient(135deg, #7C5CFF 0%, #22D3EE 100%)',
+    gradient: 'linear-gradient(135deg, #0E8FE0 0%, #46C4F5 100%)',
     emoji: '💳',
   },
   {

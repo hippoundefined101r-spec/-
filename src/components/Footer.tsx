@@ -8,6 +8,7 @@ import {
   WORK_HOURS,
   SOCIAL,
 } from '../config'
+import { Logo } from './Logo'
 
 export function Footer() {
   return (
@@ -15,9 +16,8 @@ export function Footer() {
       <div className="container">
         <div className="footer__grid">
           <div>
-            <div className="logo" style={{ marginBottom: 10 }}>
-              <span className="logo__mark">📱</span>
-              <span className="logo__name">{BRAND_NAME}</span>
+            <div style={{ marginBottom: 10 }}>
+              <Logo />
             </div>
             <p className="footer__contact">{BRAND_TAGLINE}</p>
             <div className="footer__social">

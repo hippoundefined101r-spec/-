@@ -18,12 +18,12 @@
   --text-dim: #9aa3b8;
   --text-mute: #6b7488;
 
-  /* Акценты */
-  --accent: #7c5cff;
-  --accent-2: #22d3ee;
-  --grad: linear-gradient(135deg, #7c5cff 0%, #22d3ee 100%);
-  --grad-warm: linear-gradient(135deg, #f97316 0%, #ff5c77 100%);
-  --lime: #b6ff3c;
+  /* Акценты — фирменный синий FIX APPLE на чёрном */
+  --accent: #18a0e6;
+  --accent-2: #46c4f5;
+  --grad: linear-gradient(135deg, #0e8fe0 0%, #46c4f5 100%);
+  --grad-warm: linear-gradient(135deg, #0e8fe0 0%, #22d3ee 100%);
+  --lime: #ffffff;
   --success: #2bd27a;
   --danger: #ff5c77;
 
@@ -31,7 +31,7 @@
   --radius: 18px;
   --radius-sm: 12px;
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-  --glow: 0 0 0 1px rgba(124, 92, 255, 0.4), 0 8px 30px rgba(124, 92, 255, 0.25);
+  --glow: 0 0 0 1px rgba(24, 160, 230, 0.4), 0 8px 30px rgba(24, 160, 230, 0.28);
 
   --header-h: 60px;
   --tabbar-h: 64px;
@@ -182,10 +182,15 @@ h3 {
 }
 
 .logo__name {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  letter-spacing: 0.02em;
+}
+
+.logo__fix {
+  color: var(--text-dim);
+}
+
+.logo__apple {
+  color: var(--accent);
 }
 
 .header__city {
@@ -747,7 +752,7 @@ h3 {
 
 .installment {
   font-size: 11.5px;
-  color: var(--lime);
+  color: var(--accent-2);
   font-weight: 600;
 }
 

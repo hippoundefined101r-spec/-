@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { BRAND_NAME, CITY, CITIES, PHONE, PHONE_HREF } from '../config'
+import { CITY, CITIES, PHONE, PHONE_HREF } from '../config'
 import { useCartCount } from '../store/useStore'
+import { Logo } from './Logo'
 
 const NAV = [
   { to: '/catalog', label: 'Каталог' },
@@ -26,9 +27,8 @@ export function Header() {
     <header className="header">
       <div className="container">
         <div className="header__bar">
-          <NavLink to="/" className="logo">
-            <span className="logo__mark">📱</span>
-            <span className="logo__name">{BRAND_NAME}</span>
+          <NavLink to="/" aria-label="На главную">
+            <Logo />
           </NavLink>
 
           <label className="header__city">
