@@ -65,7 +65,7 @@ export const useStore = create<AppState>()(
 
       addOrder: (order) => set((state) => ({ orders: [order, ...state.orders] })),
     }),
-    { name: 'tehno-kg-store' },
+    { name: 'phone-store' },
   ),
 )
 

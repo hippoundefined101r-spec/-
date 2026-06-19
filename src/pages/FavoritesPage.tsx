@@ -8,15 +8,15 @@ export function FavoritesPage() {
   const items = favorites.map(getProduct).filter(Boolean)
 
   return (
-    <div className="page">
-      <h2 style={{ marginTop: 4 }}>Избранное</h2>
+    <>
+      <h1 className="page-title">Избранное</h1>
       {items.length === 0 ? (
         <EmptyState
           icon="❤️"
           title="В избранном пусто"
           text="Нажмите на сердечко у товара, чтобы сохранить его"
           actionLabel="В каталог"
-          actionTo="/"
+          actionTo="/catalog"
         />
       ) : (
         <div className="grid">
@@ -25,6 +25,6 @@ export function FavoritesPage() {
           ))}
         </div>
       )}
-    </div>
+    </>
   )
 }

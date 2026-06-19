@@ -1,32 +1,39 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { BottomNav } from './components/BottomNav'
+import { Routes, Route } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { HomePage } from './pages/HomePage'
 import { CatalogPage } from './pages/CatalogPage'
 import { ProductPage } from './pages/ProductPage'
 import { CartPage } from './pages/CartPage'
 import { CheckoutPage } from './pages/CheckoutPage'
 import { OrderSuccessPage } from './pages/OrderSuccessPage'
+import { TradeInPage } from './pages/TradeInPage'
+import { ComparePage } from './pages/ComparePage'
 import { FavoritesPage } from './pages/FavoritesPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { OrdersPage } from './pages/OrdersPage'
+import { PromoPage } from './pages/PromoPage'
+import { AboutPage } from './pages/AboutPage'
+import { BlogPage } from './pages/BlogPage'
 
 export default function App() {
-  const location = useLocation()
-  // Скрываем нижнюю навигацию на «полноэкранных» шагах оформления.
-  const hideNav = ['/checkout', '/order-success'].includes(location.pathname)
-
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<CatalogPage />} />
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/catalog" element={<CatalogPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/order-success" element={<OrderSuccessPage />} />
+        <Route path="/trade-in" element={<TradeInPage />} />
+        <Route path="/compare" element={<ComparePage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/orders" element={<OrdersPage />} />
-      </Routes>
-      {!hideNav && <BottomNav />}
-    </>
+        <Route path="/promo" element={<PromoPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+      </Route>
+    </Routes>
   )
 }

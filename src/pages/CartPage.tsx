@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { useStore, useCartTotal } from '../store/useStore'
 import { getProduct } from '../data/products'
-import { formatPrice } from '../utils/format'
-import { haptic } from '../telegram'
+import { formatPrice, installmentLabel } from '../utils/format'
 import { EmptyState } from '../components/EmptyState'
 
 export function CartPage() {
@@ -14,91 +13,61 @@ export function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="page">
-        <EmptyState
-          icon="🛒"
-          title="Корзина пуста"
-          text="Добавьте товары из каталога"
-          actionLabel="Перейти в каталог"
-          actionTo="/"
-        />
-      </div>
+      <EmptyState
+        icon="🛒"
+        title="Корзина пуста"
+        text="Добавьте товары из каталога"
+        actionLabel="Перейти в каталог"
+        actionTo="/catalog"
+      />
     )
   }
 
   return (
     <>
-      <div className="page">
-        <h2 style={{ marginTop: 4 }}>Корзина</h2>
-        {cart.map((item) => {
-          const p = getProduct(item.productId)
-          if (!p) return null
-          return (
-            <div className="cart-item" key={item.productId}>
-              <img
-                className="cart-item__img"
-                src={p.image}
-                alt={p.title}
-                onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
-              />
-              <div className="cart-item__info">
-                <div className="cart-item__title">{p.title}</div>
-                <div className="cart-item__price">{formatPrice(p.price * item.qty)}</div>
-                <div className="qty">
-                  <button
-                    onClick={() => {
-                      haptic('light')
-                      setQty(item.productId, item.qty - 1)
-                    }}
-                  >
-                    −
-                  </button>
-                  <span>{item.qty}</span>
-                  <button
-                    onClick={() => {
-                      haptic('light')
-                      setQty(item.productId, item.qty + 1)
-                    }}
-                  >
-                    +
-                  </button>
-                </div>
+      <h1 className="page-title">Корзина</h1>
+
+      {cart.map((item) => {
+        const p = getProduct(item.productId)
+        if (!p) return null
+        return (
+          <div className="cart-item" key={item.productId}>
+            <img
+              className="cart-item__img"
+              src={p.image}
+              alt={p.title}
+              onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+            />
+            <div className="cart-item__body">
+              <div style={{ fontWeight: 600, fontSize: 14 }}>{p.title}</div>
+              <div style={{ fontWeight: 800, margin: '4px 0' }}>{formatPrice(p.price * item.qty)}</div>
+              <div className="qty">
+                <button onClick={() => setQty(item.productId, item.qty - 1)}>−</button>
+                <span>{item.qty}</span>
+                <button onClick={() => setQty(item.productId, item.qty + 1)}>+</button>
               </div>
-              <button
-                className="cart-item__remove"
-                onClick={() => {
-                  haptic('medium')
-                  removeFromCart(item.productId)
-                }}
-                aria-label="Удалить"
-              >
-                🗑
-              </button>
             </div>
-          )
-        })}
-      </div>
+            <button
+              onClick={() => removeFromCart(item.productId)}
+              aria-label="Удалить"
+              style={{ color: 'var(--text-mute)', fontSize: 18, alignSelf: 'flex-start' }}
+            >
+              🗑
+            </button>
+          </div>
+        )
+      })}
 
       <div className="summary">
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            marginBottom: 10,
-            fontSize: 17,
-            fontWeight: 700,
-          }}
-        >
-          <span>Итого:</span>
+        <div className="summary__row">
+          <span className="muted">Товаров: {cart.reduce((s, i) => s + i.qty, 0)}</span>
+          <span className="installment">💳 {installmentLabel(total)}</span>
+        </div>
+        <div className="summary__row summary__total">
+          <span>Итого</span>
           <span>{formatPrice(total)}</span>
         </div>
-        <button
-          className="btn-primary"
-          onClick={() => {
-            haptic('medium')
-            navigate('/checkout')
-          }}
-        >
+        <button className="btn btn--primary btn--block" onClick={() => navigate('/checkout')}>
           Оформить заказ
         </button>
       </div>

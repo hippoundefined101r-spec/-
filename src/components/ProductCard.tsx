@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import type { Product } from '../types'
 import { useStore } from '../store/useStore'
-import { formatPrice, cashback } from '../utils/format'
-import { haptic } from '../telegram'
+import { formatPrice, installmentLabel } from '../utils/format'
 
 export function ProductCard({ product }: { product: Product }) {
   const navigate = useNavigate()
@@ -17,11 +17,23 @@ export function ProductCard({ product }: { product: Product }) {
     ? Math.round((1 - product.price / product.oldPrice) * 100)
     : 0
 
+  const open = () => navigate(`/product/${product.id}`)
+
   return (
-    <div className="card">
-      <div onClick={() => navigate(`/product/${product.id}`)}>
-        {discount > 0 && product.inStock && <div className="badge">−{discount}%</div>}
-        {!product.inStock && <div className="badge badge--out">Нет в наличии</div>}
+    <motion.div
+      className="card"
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.35 }}
+    >
+      <div className="card__media" onClick={open}>
+        <div className="card__badges">
+          {discount > 0 && product.inStock && <span className="badge">−{discount}%</span>}
+          {product.isHit && <span className="badge badge--hit">ХИТ</span>}
+          {product.isNew && <span className="badge badge--new">NEW</span>}
+          {!product.inStock && <span className="badge badge--out">Нет в наличии</span>}
+        </div>
         <img
           className="card__img"
           src={product.image}
@@ -32,16 +44,14 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
       <button
         className="card__fav"
-        onClick={() => {
-          haptic('light')
-          toggleFavorite(product.id)
-        }}
+        onClick={() => toggleFavorite(product.id)}
         aria-label="В избранное"
       >
         {isFav ? '❤️' : '🤍'}
       </button>
       <div className="card__body">
-        <div className="card__title" onClick={() => navigate(`/product/${product.id}`)}>
+        <span className="card__brand">{product.brand}</span>
+        <div className="card__title" onClick={open}>
           {product.title}
         </div>
         <div className="card__rating">
@@ -49,28 +59,20 @@ export function ProductCard({ product }: { product: Product }) {
         </div>
         <div className="card__price">
           {formatPrice(product.price)}
-          {product.oldPrice && (
-            <span className="card__oldprice">{formatPrice(product.oldPrice)}</span>
-          )}
+          {product.oldPrice && <span className="card__oldprice">{formatPrice(product.oldPrice)}</span>}
         </div>
-        {product.inStock && (
-          <span className="cashback">💰 {cashback(product.price).toLocaleString('ru-RU')} ₽</span>
-        )}
+        <span className="installment">💳 {installmentLabel(product.price)}</span>
         <button
-          className={`card__btn ${inCart ? 'card__btn--incart' : ''}`}
+          className={`btn ${inCart ? 'btn--ghost' : 'btn--primary'} btn--block card__btn`}
           disabled={!product.inStock}
           onClick={() => {
-            haptic('medium')
-            if (inCart) {
-              navigate('/cart')
-            } else {
-              addToCart(product.id)
-            }
+            if (inCart) navigate('/cart')
+            else addToCart(product.id)
           }}
         >
           {!product.inStock ? 'Нет в наличии' : inCart ? 'В корзине ✓' : 'В корзину'}
         </button>
       </div>
-    </div>
+    </motion.div>
   )
 }

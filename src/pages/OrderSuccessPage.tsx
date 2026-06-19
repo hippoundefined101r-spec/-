@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 export function OrderSuccessPage() {
   const navigate = useNavigate()
@@ -6,33 +7,31 @@ export function OrderSuccessPage() {
   const orderId = (location.state as { orderId?: string } | null)?.orderId
 
   return (
-    <div className="page">
-      <div className="empty" style={{ paddingTop: 80 }}>
-        <div className="empty__icon">✅</div>
-        <div style={{ fontWeight: 700, fontSize: 20, color: 'var(--tg-text)', marginBottom: 8 }}>
-          Заказ оформлен!
+    <motion.div
+      className="empty"
+      style={{ paddingTop: 70 }}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="empty__icon">✅</div>
+      <div className="empty__title">Заказ оформлен!</div>
+      {orderId && (
+        <div className="empty__text">
+          Номер заказа: <b style={{ color: 'var(--text)' }}>{orderId}</b>
         </div>
-        {orderId && (
-          <div style={{ marginBottom: 6 }}>
-            Номер заказа: <b style={{ color: 'var(--tg-text)' }}>{orderId}</b>
-          </div>
-        )}
-        <div>Наш менеджер свяжется с вами для подтверждения.</div>
-        <button
-          className="btn-primary"
-          style={{ marginTop: 24, maxWidth: 260, marginInline: 'auto' }}
-          onClick={() => navigate('/orders')}
-        >
+      )}
+      <p className="muted" style={{ maxWidth: 320, margin: '0 auto 20px' }}>
+        Менеджер свяжется с вами для подтверждения в течение 15 минут.
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 260, margin: '0 auto' }}>
+        <button className="btn btn--primary btn--block" onClick={() => navigate('/orders')}>
           Мои заказы
         </button>
-        <button
-          className="btn-secondary"
-          style={{ marginTop: 10, maxWidth: 260, marginInline: 'auto' }}
-          onClick={() => navigate('/')}
-        >
-          Вернуться в каталог
+        <button className="btn btn--ghost btn--block" onClick={() => navigate('/')}>
+          На главную
         </button>
       </div>
-    </div>
+    </motion.div>
   )
 }

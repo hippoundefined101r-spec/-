@@ -13,12 +13,12 @@ export function EmptyState({ icon, title, text, actionLabel, actionTo }: Props) 
   return (
     <div className="empty">
       <div className="empty__icon">{icon}</div>
-      <div style={{ fontWeight: 600, color: 'var(--tg-text)', marginBottom: 6 }}>{title}</div>
-      {text && <div>{text}</div>}
+      <div className="empty__title">{title}</div>
+      {text && <div className="empty__text">{text}</div>}
       {actionLabel && actionTo && (
         <button
-          className="btn-primary"
-          style={{ marginTop: 20, maxWidth: 240, marginInline: 'auto' }}
+          className="btn btn--primary"
+          style={{ maxWidth: 240, marginInline: 'auto' }}
           onClick={() => navigate(actionTo)}
         >
           {actionLabel}

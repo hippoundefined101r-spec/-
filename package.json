@@ -1,9 +1,9 @@
 {
-  "name": "tehno-kg-mini-app",
+  "name": "phone-store-mockup",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Telegram Mini App для магазина электроники и бытовой техники КИРГУ (Россия)",
+  "description": "Макет интернет-магазина телефонов и техники (Махачкала) — React + TS + Vite",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -11,6 +11,7 @@
     "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "framer-motion": "^11.3.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
