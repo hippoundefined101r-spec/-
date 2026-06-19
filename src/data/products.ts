@@ -1,6 +1,6 @@
 import type { Product } from '../types'
 
-// Плейсхолдеры изображений (реальных фото пока нет) — picsum по seed.
+// Плейсхолдеры (для позиций без фото) — picsum по seed.
 const img = (seed: string) => `https://picsum.photos/seed/${seed}/800/800`
 const gallery = (seed: string) => [
   img(seed),
@@ -8,6 +8,11 @@ const gallery = (seed: string) => [
   img(`${seed}-3`),
   img(`${seed}-4`),
 ]
+
+// Реальные фото товаров с Wikimedia Commons (стабильный Special:FilePath,
+// подгружается браузером). Заменить на собственные фото клиента, когда будут.
+const commons = (file: string, w = 700) =>
+  `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${w}`
 
 // Типовые наборы вариантов
 const appleColors = [
@@ -34,8 +39,7 @@ export const products: Product[] = [
     oldPrice: 149900,
     rating: 4.9,
     reviews: 412,
-    image: img('iphone15promax'),
-    gallery: gallery('iphone15promax'),
+    image: commons('IPhone 15 pro max.png'),
     inStock: true,
     isHit: true,
     description:
@@ -59,8 +63,7 @@ export const products: Product[] = [
     oldPrice: 129900,
     rating: 4.9,
     reviews: 312,
-    image: img('iphone15pro'),
-    gallery: gallery('iphone15pro'),
+    image: commons('IPhone 15 pro.png'),
     inStock: true,
     isHit: true,
     description:
@@ -82,8 +85,7 @@ export const products: Product[] = [
     price: 84900,
     rating: 4.8,
     reviews: 256,
-    image: img('iphone15'),
-    gallery: gallery('iphone15'),
+    image: commons('Apple iPhone 15.png'),
     inStock: true,
     isNew: true,
     description: 'Динамический остров, камера 48 Мп и USB-C в ярком корпусе. Чип A16 Bionic.',
@@ -114,8 +116,7 @@ export const products: Product[] = [
     oldPrice: 139900,
     rating: 4.8,
     reviews: 198,
-    image: img('s24ultra'),
-    gallery: gallery('s24ultra'),
+    image: commons('Samsung S24 Ultra Phone.png'),
     inStock: true,
     isHit: true,
     description:
@@ -145,8 +146,7 @@ export const products: Product[] = [
     price: 79900,
     rating: 4.7,
     reviews: 142,
-    image: img('s24'),
-    gallery: gallery('s24'),
+    image: commons('Samsung Galaxy S24.jpg'),
     inStock: true,
     description: 'Компактный флагман с ярким экраном 120 Гц и функциями Galaxy AI.',
     specs: [
@@ -165,8 +165,7 @@ export const products: Product[] = [
     oldPrice: 74900,
     rating: 4.6,
     reviews: 96,
-    image: img('xiaomi14'),
-    gallery: gallery('xiaomi14'),
+    image: commons('小米14 Pro和小米14（2024年2月20日）.jpg'),
     inStock: true,
     isNew: true,
     description: 'Камера Leica, мощный Snapdragon 8 Gen 3 и быстрая зарядка 90 Вт.',
@@ -185,8 +184,7 @@ export const products: Product[] = [
     price: 27900,
     rating: 4.5,
     reviews: 211,
-    image: img('redminote13'),
-    gallery: gallery('redminote13'),
+    image: commons('Xiaomi Redmi Note.JPG'),
     inStock: true,
     description: 'Камера 200 Мп и AMOLED-экран за разумные деньги. Хит бюджетного сегмента.',
     specs: [
@@ -205,8 +203,7 @@ export const products: Product[] = [
     oldPrice: 26900,
     rating: 4.9,
     reviews: 540,
-    image: img('airpodspro2'),
-    gallery: gallery('airpodspro2'),
+    image: commons('Apple airpods pro.jpg'),
     inStock: true,
     isHit: true,
     description: 'Активное шумоподавление, адаптивный звук и до 6 часов прослушивания.',
@@ -225,8 +222,7 @@ export const products: Product[] = [
     price: 54900,
     rating: 4.7,
     reviews: 88,
-    image: img('airpodsmax'),
-    gallery: gallery('airpodsmax'),
+    image: commons('Apple AirPods Max 6.jpg'),
     inStock: false,
     description: 'Полноразмерные наушники с пространственным звуком и премиальными материалами.',
     specs: [
@@ -262,8 +258,7 @@ export const products: Product[] = [
     price: 41900,
     rating: 4.8,
     reviews: 132,
-    image: img('applewatch9'),
-    gallery: gallery('applewatch9'),
+    image: commons('Apple Watch Series 10.JPG'),
     inStock: true,
     isNew: true,
     description: 'Яркий дисплей, жест Double Tap и точные датчики здоровья.',
@@ -282,8 +277,7 @@ export const products: Product[] = [
     oldPrice: 28900,
     rating: 4.6,
     reviews: 76,
-    image: img('galaxywatch6'),
-    gallery: gallery('galaxywatch6'),
+    image: commons('Samsung Galaxy Watch 6.jpg'),
     inStock: true,
     description: 'Круглый AMOLED-экран, мониторинг сна и тренировок на Wear OS.',
     specs: [
@@ -300,8 +294,7 @@ export const products: Product[] = [
     price: 64900,
     rating: 4.8,
     reviews: 64,
-    image: img('ipadair'),
-    gallery: gallery('ipadair'),
+    image: commons('IPad Air 4.png'),
     inStock: true,
     description: 'Чип M-серии, экран Liquid Retina и поддержка Apple Pencil.',
     specs: [
@@ -319,8 +312,7 @@ export const products: Product[] = [
     oldPrice: 129900,
     rating: 4.9,
     reviews: 58,
-    image: img('macbookairm3'),
-    gallery: gallery('macbookairm3'),
+    image: commons('MacBook Air M1.png'),
     inStock: true,
     isHit: true,
     description: 'Тонкий и тихий ноутбук на чипе M3 с экраном Liquid Retina и автономностью до 18 ч.',
@@ -356,8 +348,7 @@ export const products: Product[] = [
     price: 4490,
     rating: 4.6,
     reviews: 203,
-    image: img('magsafe'),
-    gallery: gallery('magsafe'),
+    image: commons('Magsafe charging.JPG'),
     inStock: true,
     description: 'Магнитная беспроводная зарядка для iPhone с быстрой фиксацией.',
     specs: [
@@ -374,8 +365,7 @@ export const products: Product[] = [
     oldPrice: 2490,
     rating: 4.5,
     reviews: 318,
-    image: img('case15pro'),
-    gallery: gallery('case15pro'),
+    image: commons('Apple iPhone 7 in Apple leather case.jpg'),
     inStock: true,
     description: 'Противоударный чехол с поддержкой MagSafe.',
     specs: [
@@ -391,8 +381,7 @@ export const products: Product[] = [
     price: 3990,
     rating: 4.7,
     reviews: 410,
-    image: img('powerbank'),
-    gallery: gallery('powerbank'),
+    image: commons('Power bank.JPG'),
     inStock: true,
     description: 'Ёмкий повербанк с быстрой зарядкой USB-C PD на 30 Вт.',
     specs: [
