@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Гурман 05 — Кафе в Махачкале</title>
+<meta name="description" content="Кафе полуфабрикатов Гурман 05 в Махачкале — домашние горячие блюда и свежие полуфабрикаты. Доставка и самовывоз.">
+<meta property="og:title" content="Гурман 05 — домашние полуфабрикаты в Махачкале">
+<meta property="og:description" content="Горячие блюда и свежие полуфабрикаты ручной лепки. Доставка и самовывоз.">
+<meta property="og:type" content="website">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #F6F2EC;
+  --bg-alt:   #EDE8DF;
+  --card:     #FFFCF8;
+  --sand:     #E4D9C8;
+  --accent:   #B85928;
+  --gold:     #C8963A;
+  --dark:     #1F120A;
+  --mid:      #6B5444;
+  --muted:    #9E8674;
+  --border:   #DDD5C5;
+  --f-display: Georgia, 'Palatino Linotype', serif;
+  --f-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --max-w:    1080px;
+  --r:        10px;
+  --shadow:   0 2px 18px rgba(31,18,10,.07);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--dark);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Reveal animation ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity .55s ease, transform .55s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(246,242,236,.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  height: 62px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.logo {
+  font-family: var(--f-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-decoration: none;
+  letter-spacing: -.4px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.logo img { height: 40px; width: auto; display: block; }
+.logo-badge {
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--f-body);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  position: relative;
+  top: -1px;
+}
+.nav-links { display: flex; gap: 6px; list-style: none; }
+.nav-links a {
+  font-size: .875rem;
+  color: var(--mid);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: color .2s, background .2s;
+}
+.nav-links a:hover { color: var(--dark); background: var(--bg-alt); }
+.nav-cta {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+.nav-cta:hover { background: #9A4720 !important; }
+@media (max-width: 600px) { .nav-links { display: none; } }
+
+/* ── Hero ── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding-top: 62px;
+}
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(158deg, rgba(35,16,8,.82) 0%, rgba(74,30,10,.72) 45%, rgba(120,53,21,.6) 75%, rgba(168,76,32,.55) 100%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      -48deg,
+      transparent,
+      transparent 44px,
+      rgba(255,255,255,.022) 44px,
+      rgba(255,255,255,.022) 45px
+    );
+}
+.hero-glow {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 50%;
+  background: radial-gradient(ellipse, rgba(200,150,58,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.video-hint {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  background: rgba(255,255,255,.08);
+  border: 1px dashed rgba(255,255,255,.2);
+  border-radius: 7px;
+  padding: 8px 14px;
+  font-size: .72rem;
+  color: rgba(255,255,255,.38);
+  pointer-events: none;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 32px 24px;
+  max-width: 620px;
+  animation: fadeUp .85s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow {
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 18px;
+}
+.hero-title {
+  font-family: var(--f-display);
+  font-size: clamp(3.2rem, 12vw, 6rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.0;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+  margin-bottom: 18px;
+}
+.hero-logo {
+  margin: 0 0 22px;
+  line-height: 0;
+}
+.hero-logo img {
+  width: clamp(180px, 42vw, 280px);
+  height: auto;
+  filter: drop-shadow(0 12px 32px rgba(0,0,0,.4));
+  animation: logoPop .9s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes logoPop {
+  from { opacity: 0; transform: scale(.85) translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.68);
+  text-wrap: balance;
+  margin-bottom: 38px;
+  max-width: 420px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 14px 30px;
+  border-radius: 8px;
+  font-size: .95rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--f-body);
+  transition: background .2s, transform .15s;
+  display: inline-block;
+}
+.btn-primary:hover { background: #9A4720; transform: translateY(-1px); }
+.btn-ghost {
+  background: rgba(255,255,255,.1);
+  color: #fff;
+  padding: 14px 26px;
+  border-radius: 8px;
+  font-size: .95rem;
+  font-weight: 500;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.22);
+  transition: background .2s;
+  display: inline-block;
+}
+.btn-ghost:hover { background: rgba(255,255,255,.18); }
+.hero-scroll {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  animation: fadeUp 1.2s .4s ease both;
+}
+.hero-scroll span {
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+}
+.scroll-line {
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%, 100% { opacity: .4; transform: scaleY(1); }
+  50%       { opacity: .9; transform: scaleY(1.15); }
+}
+
+/* ── Shared section ── */
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+section { padding: 80px 24px; }
+.section-label {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-align: center;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--f-display);
+  font-size: clamp(1.75rem, 4vw, 2.6rem);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+  text-wrap: balance;
+  color: var(--dark);
+  margin-bottom: 12px;
+}
+.section-desc {
+  text-align: center;
+  color: var(--mid);
+  max-width: 500px;
+  margin: 0 auto 52px;
+  font-size: .95rem;
+}
+.divider {
+  width: 36px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+/* ── Wheat ornament (из логотипа) ── */
+.wheat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 0 auto 24px;
+  color: var(--gold);
+}
+.wheat svg { display: block; }
+.wheat .stalk-left  { transform: scaleX(-1); }
+.wheat-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+/* ── About ── */
+.about { background: var(--bg-alt); }
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
+}
+.about-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 28px 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+}
+.about-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(31,18,10,.11);
+}
+.about-icon { font-size: 2.1rem; margin-bottom: 12px; display: block; }
+.about-card h3 {
+  font-family: var(--f-display);
+  font-size: 1.05rem;
+  margin-bottom: 7px;
+  color: var(--dark);
+}
+.about-card p { font-size: .85rem; color: var(--mid); line-height: 1.5; }
+
+/* ── Menu ── */
+.menu { background: var(--bg); }
+.tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 38px;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 10px 22px;
+  border-radius: 40px;
+  border: 2px solid var(--border);
+  background: transparent;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--mid);
+  cursor: pointer;
+  transition: all .2s;
+  font-family: var(--f-body);
+}
+.tab-btn:hover { border-color: var(--accent); color: var(--accent); }
+.tab-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.menu-panel { display: none; }
+.menu-panel.active {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px;
+  animation: fadeIn .3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.menu-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .25s, box-shadow .25s;
+}
+.menu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(31,18,10,.13);
+}
+.menu-card-top {
+  background: linear-gradient(135deg, var(--bg-alt) 0%, var(--sand) 100%);
+  padding: 26px;
+  text-align: center;
+  font-size: 2.6rem;
+  border-bottom: 1px solid var(--border);
+  min-height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.menu-card-body { padding: 18px 20px; }
+.menu-card-name {
+  font-family: var(--f-display);
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 5px;
+}
+.menu-card-desc { font-size: .8rem; color: var(--muted); line-height: 1.45; margin-bottom: 14px; }
+.menu-card-footer { display: flex; align-items: center; justify-content: space-between; }
+.price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.tag {
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--bg-alt);
+  color: var(--mid);
+}
+
+/* ── Order ── */
+.order {
+  background: linear-gradient(148deg, #20100A 0%, #3E1B0C 45%, #5E2810 100%);
+  position: relative;
+  overflow: hidden;
+}
+.order::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    42deg,
+    transparent,
+    transparent 56px,
+    rgba(255,255,255,.018) 56px,
+    rgba(255,255,255,.018) 57px
+  );
+  pointer-events: none;
+}
+.order .section-label { color: rgba(255,255,255,.45); }
+.order .section-title { color: #fff; }
+.order .section-desc { color: rgba(255,255,255,.6); }
+.order-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 700px) {
+  .order-layout { grid-template-columns: 1fr; gap: 36px; }
+}
+.order-info h3 {
+  font-family: var(--f-display);
+  font-size: 1.35rem;
+  color: #fff;
+  margin-bottom: 24px;
+}
+.order-feature {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+.feat-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 9px;
+  background: rgba(255,255,255,.09);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.feat-icon.wa { background: rgba(37,211,102,.2); }
+.feat-text strong { display: block; font-size: .92rem; color: #fff; margin-bottom: 2px; }
+.feat-text span { font-size: .8rem; color: rgba(255,255,255,.5); }
+.wa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  padding: 12px 22px;
+  background: #25D366;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: .88rem;
+  text-decoration: none;
+  transition: background .2s, transform .15s;
+}
+.wa-btn:hover { background: #1DB954; transform: translateY(-1px); }
+.order-form-wrap {
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 16px;
+  padding: 30px;
+}
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 7px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 8px;
+  color: #fff;
+  font-size: .92rem;
+  font-family: var(--f-body);
+  outline: none;
+  transition: border-color .2s, background .2s;
+  -webkit-appearance: none;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(255,255,255,.25); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: rgba(255,255,255,.35);
+  background: rgba(255,255,255,.1);
+}
+.form-group select option { background: #3D1A08; }
+.form-group textarea { resize: vertical; min-height: 86px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 460px) { .form-row { grid-template-columns: 1fr; } }
+.input-error { border-color: #ff6b6b !important; }
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: #fff;
+  font-size: .95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: var(--f-body);
+  transition: background .2s, transform .15s;
+  margin-top: 4px;
+}
+.btn-submit:hover { background: #9A4720; transform: translateY(-1px); }
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 44px 16px;
+}
+.form-success .s-icon { font-size: 3rem; margin-bottom: 16px; }
+.form-success h3 {
+  font-family: var(--f-display);
+  font-size: 1.4rem;
+  color: #fff;
+  margin-bottom: 8px;
+}
+.form-success p { color: rgba(255,255,255,.55); font-size: .9rem; }
+
+/* ── Footer ── */
+footer {
+  background: var(--dark);
+  color: rgba(255,255,255,.55);
+  padding: 64px 24px 36px;
+}
+.footer-inner { max-width: var(--max-w); margin: 0 auto; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+@media (max-width: 620px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+.footer-brand .logo { color: #fff; margin-bottom: 12px; display: inline-flex; }
+.footer-brand p { font-size: .85rem; line-height: 1.65; max-width: 250px; }
+footer h4 {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: 16px;
+}
+footer ul { list-style: none; }
+footer ul li { margin-bottom: 10px; }
+footer ul a {
+  color: rgba(255,255,255,.55);
+  text-decoration: none;
+  font-size: .875rem;
+  transition: color .2s;
+}
+footer ul a:hover { color: #fff; }
+.contact-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: .855rem;
+  align-items: flex-start;
+}
+.contact-row .ci { opacity: .35; flex-shrink: 0; margin-top: 1px; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.07);
+  padding-top: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: .78rem;
+}
+.footer-social { display: flex; gap: 10px; }
+.footer-social a {
+  width: 34px;
+  height: 34px;
+  border-radius: 7px;
+  background: rgba(255,255,255,.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .95rem;
+  text-decoration: none;
+  color: rgba(255,255,255,.6);
+  transition: background .2s;
+}
+.footer-social a:hover { background: rgba(255,255,255,.15); }
+
+/* ── Floating group ── */
+.float-group {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity .3s, transform .3s;
+}
+.float-group.visible { opacity: 1; transform: none; pointer-events: auto; }
+.float-wa {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(37,211,102,.38);
+  transition: transform .2s, box-shadow .2s;
+}
+.float-wa:hover { transform: scale(1.09); box-shadow: 0 6px 26px rgba(37,211,102,.5); }
+.float-order {
+  background: var(--accent);
+  color: #fff;
+  padding: 11px 20px;
+  border-radius: 30px;
+  font-size: .875rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(184,89,40,.38);
+  transition: background .2s, transform .15s;
+  white-space: nowrap;
+}
+.float-order:hover { background: #9A4720; transform: translateY(-1px); }
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="logo"><img src="assets/logo.png" alt="Гурман 05"><span class="logo-text">Гурман <span class="logo-badge">05</span></span></a>
+    <ul class="nav-links">
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#menu">Меню</a></li>
+      <li><a href="#order" class="nav-cta">Заказать</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero" id="top">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="assets/video_2026-06-26_20-30-10.mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Махачкала · Работаем круглосуточно</p>
+    <h1 class="hero-logo">
+      <img src="assets/logo.png" alt="Гурман 05 — домашние полуфабрикаты">
+    </h1>
+    <p class="hero-sub">Горячие блюда и свежие полуфабрикаты ручной лепки — готовим с душой каждый день</p>
+    <div class="hero-actions">
+      <a href="#order" class="btn-primary">Оформить заказ</a>
+      <a href="#menu" class="btn-ghost">Смотреть меню</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Прокрутите</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <p class="section-label reveal">Почему мы</p>
+    <div class="wheat reveal" aria-hidden="true">
+      <svg class="stalk-left" width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 10h32"/><path d="M34 10c4-3 9-3 12 0-4 3-9 3-12 0Z" fill="currentColor" stroke="none" opacity=".85"/><path d="M14 10c1.5-3 5-4 7-3-1 3-4 4.5-7 3Z" fill="currentColor" stroke="none"/><path d="M14 10c1.5 3 5 4 7 3-1-3-4-4.5-7-3Z" fill="currentColor" stroke="none"/><path d="M22 10c1.5-3 5-4 7-3-1 3-4 4.5-7 3Z" fill="currentColor" stroke="none"/><path d="M22 10c1.5 3 5 4 7 3-1-3-4-4.5-7-3Z" fill="currentColor" stroke="none"/></svg>
+      <span class="wheat-dot"></span>
+      <svg class="stalk-right" width="48" height="20" viewBox="0 0 48 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 10h32"/><path d="M34 10c4-3 9-3 12 0-4 3-9 3-12 0Z" fill="currentColor" stroke="none" opacity=".85"/><path d="M14 10c1.5-3 5-4 7-3-1 3-4 4.5-7 3Z" fill="currentColor" stroke="none"/><path d="M14 10c1.5 3 5 4 7 3-1-3-4-4.5-7-3Z" fill="currentColor" stroke="none"/><path d="M22 10c1.5-3 5-4 7-3-1 3-4 4.5-7 3Z" fill="currentColor" stroke="none"/><path d="M22 10c1.5 3 5 4 7 3-1-3-4-4.5-7-3Z" fill="currentColor" stroke="none"/></svg>
+    </div>
+    <h2 class="section-title reveal">Домашняя еда — быстро</h2>
+    <p class="section-desc reveal">Готовим каждый день из свежих продуктов. Лепим вручную. Без замороженных горячих блюд.</p>
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <span class="about-icon">🍽️</span>
+        <h3>Горячие блюда</h3>
+        <p>Хинкал, курзе, чуду и супы — всегда свежеприготовленные</p>
+      </div>
+      <div class="about-card reveal">
+        <span class="about-icon">📦</span>
+        <h3>Полуфабрикаты</h3>
+        <p>Курзе, манты, самса — лепим вручную каждое утро</p>
+      </div>
+      <div class="about-card reveal">
+        <span class="about-icon">🛵</span>
+        <h3>Доставка</h3>
+        <p>Привезём горячим прямо до вашей двери по городу</p>
+      </div>
+      <div class="about-card reveal">
+        <span class="about-icon">🏃</span>
+        <h3>Самовывоз</h3>
+        <p>Закажите заранее — всё будет готово к вашему приезду</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MENU ═══ -->
+<section class="menu" id="menu">
+  <div class="section-inner">
+    <p class="section-label reveal">Наше меню</p>
+    <div class="divider reveal"></div>
+    <h2 class="section-title reveal">Что мы готовим</h2>
+    <p class="section-desc reveal">Цены актуальны. Наличие блюд уточняйте по телефону.</p>
+
+    <div class="tabs reveal">
+      <button class="tab-btn active" data-tab="hot">🔥&nbsp; Горячие блюда</button>
+      <button class="tab-btn" data-tab="semi">📦&nbsp; Полуфабрикаты</button>
+    </div>
+
+    <div class="menu-panel active" id="tab-hot">
+      <div class="menu-card">
+        <div class="menu-card-top">🥣</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Хинкал аварский</div>
+          <div class="menu-card-desc">Традиционное блюдо с говядиной, чесночным соусом и наваристым бульоном</div>
+          <div class="menu-card-footer">
+            <span class="price">от 350 ₽</span><span class="tag">Порция</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🥟</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Курзе отварные</div>
+          <div class="menu-card-desc">Домашние дагестанские пельмени с мясной начинкой, со сметаной</div>
+          <div class="menu-card-footer">
+            <span class="price">от 280 ₽</span><span class="tag">Порция</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🫓</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Чуду с зеленью</div>
+          <div class="menu-card-desc">Тонкие лепёшки с начинкой из творога и дикой зелени, на сливочном масле</div>
+          <div class="menu-card-footer">
+            <span class="price">от 180 ₽</span><span class="tag">Штука</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🍲</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Суп с хинкалом</div>
+          <div class="menu-card-desc">Наваристый мясной бульон с кусочками домашнего хинкала</div>
+          <div class="menu-card-footer">
+            <span class="price">от 200 ₽</span><span class="tag">Порция</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🥩</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Жаркое из говядины</div>
+          <div class="menu-card-desc">Тушёная говядина с картофелем и домашними специями</div>
+          <div class="menu-card-footer">
+            <span class="price">от 320 ₽</span><span class="tag">Порция</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🍛</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Долма</div>
+          <div class="menu-card-desc">Голубцы в виноградных листьях с мясом и рисом</div>
+          <div class="menu-card-footer">
+            <span class="price">от 300 ₽</span><span class="tag">Порция</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-panel" id="tab-semi">
+      <div class="menu-card">
+        <div class="menu-card-top">🥟</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Курзе замороженные</div>
+          <div class="menu-card-desc">Ручной лепки, мясная начинка. Готовятся за 12–15 минут</div>
+          <div class="menu-card-footer">
+            <span class="price">от 450 ₽</span><span class="tag">1 кг</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🫔</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Манты замороженные</div>
+          <div class="menu-card-desc">Большие, сочные — говядина с луком. На пару за 40 минут</div>
+          <div class="menu-card-footer">
+            <span class="price">от 480 ₽</span><span class="tag">1 кг</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🥐</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Самса</div>
+          <div class="menu-card-desc">Слоёная выпечка с мясом. Запечь дома за 20 мин</div>
+          <div class="menu-card-footer">
+            <span class="price">от 250 ₽</span><span class="tag">6 шт.</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🫓</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Чуду замороженное</div>
+          <div class="menu-card-desc">Лепёшки с начинкой — разогрейте на сковороде за 5 минут</div>
+          <div class="menu-card-footer">
+            <span class="price">от 200 ₽</span><span class="tag">3 шт.</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🥟</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Чебуреки замороженные</div>
+          <div class="menu-card-desc">Сочные, с мясной начинкой. Жарятся за 10 минут</div>
+          <div class="menu-card-footer">
+            <span class="price">от 280 ₽</span><span class="tag">6 шт.</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-card-top">🍥</div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">Хинкальное тесто</div>
+          <div class="menu-card-desc">Готовое тесто для хинкала — только раскатать и сварить</div>
+          <div class="menu-card-footer">
+            <span class="price">от 120 ₽</span><span class="tag">500 г</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ORDER ═══ -->
+<section class="order" id="order">
+  <div class="section-inner">
+    <p class="section-label reveal">Оформить заказ</p>
+    <div class="divider reveal" style="background:rgba(255,255,255,.25)"></div>
+    <h2 class="section-title reveal">Заказать сейчас</h2>
+    <p class="section-desc reveal">Оставьте заявку — перезвоним в течение 10 минут</p>
+
+    <div class="order-layout reveal">
+      <div class="order-info">
+        <h3>Как мы работаем</h3>
+        <div class="order-feature">
+          <div class="feat-icon">📋</div>
+          <div class="feat-text">
+            <strong>Принимаем заявку</strong>
+            <span>Через форму или напрямую в WhatsApp</span>
+          </div>
+        </div>
+        <div class="order-feature">
+          <div class="feat-icon">👨‍🍳</div>
+          <div class="feat-text">
+            <strong>Готовим</strong>
+            <span>Все блюда свежеприготовленные к заказу</span>
+          </div>
+        </div>
+        <div class="order-feature">
+          <div class="feat-icon">🛵</div>
+          <div class="feat-text">
+            <strong>Доставляем или ждём вас</strong>
+            <span>Горячим до двери или самовывоз без ожидания</span>
+          </div>
+        </div>
+        <div class="order-feature" style="margin-top:28px; border-top:1px solid rgba(255,255,255,.08); padding-top:28px;">
+          <div class="feat-icon wa">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </div>
+          <div class="feat-text">
+            <strong style="color:#4ade80;">Быстрее через WhatsApp</strong>
+            <span>Напишите нам прямо сейчас</span>
+          </div>
+        </div>
+        <!-- ЗАМЕНИТЕ номер на свой -->
+        <a href="https://wa.me/79640054466?text=Хочу%20сделать%20заказ" target="_blank" rel="noopener" class="wa-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Написать в WhatsApp
+        </a>
+      </div>
+
+      <div class="order-form-wrap">
+        <form id="orderForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ваше имя</label>
+              <input type="text" id="f-name" placeholder="Магомед" autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label>Телефон</label>
+              <input type="tel" id="f-phone" placeholder="+7 (XXX) XXX-XX-XX" autocomplete="tel">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Тип заказа</label>
+            <select id="f-type">
+              <option value="" disabled selected>Выберите...</option>
+              <option value="delivery">🛵  Доставка на дом</option>
+              <option value="pickup">🏃  Самовывоз</option>
+            </select>
+          </div>
+          <div class="form-group" id="addr-group" style="display:none;">
+            <label>Адрес доставки</label>
+            <input type="text" id="f-addr" placeholder="Улица, дом, квартира">
+          </div>
+          <div class="form-group">
+            <label>Что хотите заказать</label>
+            <textarea id="f-order" placeholder="Например: хинкал × 2, курзе 1 кг..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Отправить заявку →</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          <div class="s-icon">✅</div>
+          <h3>Заявка принята!</h3>
+          <p>Перезвоним вам в течение 10 минут. Спасибо!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="logo">Гурман <span class="logo-badge">05</span></a>
+        <p>Домашние полуфабрикаты и горячие блюда в Махачкале. Лепим вручную, готовим с душой каждый день.</p>
+      </div>
+      <div>
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="#about">О нас</a></li>
+          <li><a href="#menu">Меню</a></li>
+          <li><a href="#order">Заказать</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <!-- ЗАПОЛНИТЕ свои данные -->
+        <div class="contact-row"><span class="ci">📍</span><span>г. Махачкала</span></div>
+        <div class="contact-row"><span class="ci">📞</span><a href="tel:+79640054466" style="color:inherit;text-decoration:none;">+7 964 005 44 66</a></div>
+        <div class="contact-row"><span class="ci">🕐</span><span>Работаем круглосуточно</span></div>
+        <div class="contact-row"><span class="ci">📸</span><a href="https://instagram.com/miaso.testo" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">@miaso.testo</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Гурман 05 — все права защищены</span>
+      <div class="footer-social">
+        <!-- ЗАМЕНИТЕ # на свои ссылки -->
+        <a href="https://instagram.com/miaso.testo" target="_blank" rel="noopener" title="Instagram @miaso.testo">📸</a>
+        <a href="https://wa.me/79640054466" target="_blank" rel="noopener" title="WhatsApp">💬</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ FLOATING BUTTONS ═══ -->
+<div class="float-group" id="floatGroup">
+  <!-- ЗАМЕНИТЕ номер на свой -->
+  <a href="https://wa.me/79640054466?text=Хочу%20сделать%20заказ" target="_blank" rel="noopener" class="float-wa" title="WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a href="#order" class="float-order">Заказать →</a>
+</div>
+
+<script>
+(function() {
+  // Tabs
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById('tab-' + this.dataset.tab).classList.add('active');
+    });
+  });
+
+  // Address field show/hide
+  document.getElementById('f-type').addEventListener('change', function() {
+    document.getElementById('addr-group').style.display = this.value === 'delivery' ? 'block' : 'none';
+  });
+
+  // Form submit
+  document.getElementById('orderForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name  = document.getElementById('f-name');
+    var phone = document.getElementById('f-phone');
+    var ok = true;
+    [name, phone].forEach(function(el) {
+      if (!el.value.trim()) {
+        el.classList.add('input-error');
+        ok = false;
+      } else {
+        el.classList.remove('input-error');
+      }
+    });
+    if (!ok) return;
+    this.style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+  });
+  ['f-name','f-phone'].forEach(function(id) {
+    document.getElementById(id).addEventListener('input', function() {
+      this.classList.remove('input-error');
+    });
+  });
+
+  // Scroll reveal
+  var revealEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry, i) {
+      if (entry.isIntersecting) {
+        var delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(function() {
+          entry.target.classList.add('visible');
+        }, delay);
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(function(el, i) {
+    el.dataset.delay = (i % 5) * 75;
+    io.observe(el);
+  });
+
+  // Floating buttons appear after hero
+  var floatGroup = document.getElementById('floatGroup');
+  var hero = document.querySelector('.hero');
+  var floatIo = new IntersectionObserver(function(entries) {
+    floatGroup.classList.toggle('visible', !entries[0].isIntersecting);
+  }, { threshold: 0.2 });
+  floatIo.observe(hero);
+})();
+</script>
+</body>
+</html>
