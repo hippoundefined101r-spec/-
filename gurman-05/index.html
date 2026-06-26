@@ -1,5 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Гурман 05 — Кафе в Махачкале</title>
 <meta name="description" content="Кафе полуфабрикатов Гурман 05 в Махачкале — домашние горячие блюда и свежие полуфабрикаты. Доставка и самовывоз.">
+<meta property="og:title" content="Гурман 05 — домашние полуфабрикаты в Махачкале">
+<meta property="og:description" content="Горячие блюда и свежие полуфабрикаты ручной лепки. Доставка и самовывоз.">
+<meta property="og:type" content="website">
 
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -117,10 +125,20 @@ nav {
   overflow: hidden;
   padding-top: 62px;
 }
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(158deg, #231008 0%, #4A1E0A 35%, #7A3515 65%, #A84C20 100%);
+  z-index: 1;
+  background:
+    linear-gradient(158deg, rgba(35,16,8,.82) 0%, rgba(74,30,10,.72) 45%, rgba(120,53,21,.6) 75%, rgba(168,76,32,.55) 100%);
 }
 .hero-bg::after {
   content: '';
@@ -159,7 +177,7 @@ nav {
 }
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
   padding: 32px 24px;
   max-width: 620px;
@@ -186,6 +204,20 @@ nav {
   letter-spacing: -.03em;
   text-wrap: balance;
   margin-bottom: 18px;
+}
+.hero-logo {
+  margin: 0 0 22px;
+  line-height: 0;
+}
+.hero-logo img {
+  width: clamp(180px, 42vw, 280px);
+  height: auto;
+  filter: drop-shadow(0 12px 32px rgba(0,0,0,.4));
+  animation: logoPop .9s cubic-bezier(.2,.7,.2,1) both;
+}
+@keyframes logoPop {
+  from { opacity: 0; transform: scale(.85) translateY(10px); }
+  to   { opacity: 1; transform: none; }
 }
 .hero-sub {
   font-size: 1.05rem;
@@ -686,15 +718,13 @@ footer ul a:hover { color: #fff; }
 }
 .float-order:hover { background: #9A4720; transform: translateY(-1px); }
 </style>
+</head>
+<body>
 
 <!-- ═══ NAV ═══ -->
 <nav>
   <div class="nav-inner">
-    <!--
-      ЛОГОТИП: чтобы вставить картинку, замените строку ниже на:
-      <a href="#top" class="logo"><img src="assets/logo.png" alt="Гурман 05"></a>
-    -->
-    <a href="#top" class="logo">Гурман <span class="logo-badge">05</span></a>
+    <a href="#top" class="logo"><img src="assets/logo.png" alt="Гурман 05"><span class="logo-text">Гурман <span class="logo-badge">05</span></span></a>
     <ul class="nav-links">
       <li><a href="#about">О нас</a></li>
       <li><a href="#menu">Меню</a></li>
@@ -705,25 +735,17 @@ footer ul a:hover { color: #fff; }
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="top">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="assets/video_2026-06-26_20-30-10.mp4" type="video/mp4">
+  </video>
   <div class="hero-bg"></div>
   <div class="hero-glow"></div>
 
-  <!--
-    ДОБАВЬТЕ ВИДЕО: раскомментируйте блок ниже и укажите путь к файлу
-    <video autoplay muted loop playsinline
-      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;pointer-events:none;">
-      <source src="assets/video.mp4" type="video/mp4">
-    </video>
-  -->
-  <div class="video-hint">📹 Здесь будет ваше видео</div>
-
   <div class="hero-content">
     <p class="hero-eyebrow">Махачкала · Домашние полуфабрикаты</p>
-    <!--
-      ЛОГОТИП В HERO: чтобы показать вашу эмблему вместо текста, вставьте перед заголовком:
-      <img src="assets/logo.png" alt="Гурман 05" style="width:200px;max-width:60vw;margin:0 auto 20px;display:block;">
-    -->
-    <h1 class="hero-title">Гурман 05</h1>
+    <h1 class="hero-logo">
+      <img src="assets/logo.png" alt="Гурман 05 — домашние полуфабрикаты">
+    </h1>
     <p class="hero-sub">Горячие блюда и свежие полуфабрикаты ручной лепки — готовим с душой каждый день</p>
     <div class="hero-actions">
       <a href="#order" class="btn-primary">Оформить заказ</a>
@@ -1115,3 +1137,5 @@ footer ul a:hover { color: #fff; }
   floatIo.observe(hero);
 })();
 </script>
+</body>
+</html>
