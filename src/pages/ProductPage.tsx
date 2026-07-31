@@ -1,9 +1,10 @@
+import { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { PackageX, Star, Heart, Check, X } from 'lucide-react'
+import { PackageX, Star, Heart, Check, X, Share2 } from 'lucide-react'
 import { getProduct, products } from '../data/products'
 import { useStore } from '../store/useStore'
 import { formatPrice, cashback } from '../utils/format'
-import { haptic } from '../telegram'
+import { haptic, shareInTelegram } from '../telegram'
 import { BackLink } from '../components/BackLink'
 import { EmptyState } from '../components/EmptyState'
 import { ProductCard } from '../components/ProductCard'
@@ -17,6 +18,11 @@ export function ProductPage() {
   const addToCart = useStore((s) => s.addToCart)
   const favorites = useStore((s) => s.favorites)
   const toggleFavorite = useStore((s) => s.toggleFavorite)
+  const addRecentlyViewed = useStore((s) => s.addRecentlyViewed)
+
+  useEffect(() => {
+    if (product) addRecentlyViewed(product.id)
+  }, [product?.id])
 
   if (!product) {
     return (
@@ -111,6 +117,20 @@ export function ProductPage() {
             aria-label="В избранное"
           >
             <Heart size={22} fill={isFav ? '#e3262c' : 'none'} color={isFav ? '#e3262c' : '#8a8f98'} />
+          </button>
+          <button
+            className="btn-secondary"
+            style={{ flex: '0 0 56px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={() => {
+              haptic('light')
+              shareInTelegram(
+                window.location.href,
+                `${product.title} за ${formatPrice(product.price)} в КИРГУ`,
+              )
+            }}
+            aria-label="Поделиться"
+          >
+            <Share2 size={22} color="#8a8f98" />
           </button>
           <button
             className="btn-primary"

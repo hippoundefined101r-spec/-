@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { products } from '../data/products'
+import { products, getProduct } from '../data/products'
 import { categories } from '../data/categories'
 import { rooms } from '../data/rooms'
 import { stocks } from '../data/stocks'
@@ -10,6 +10,9 @@ import { haptic } from '../telegram'
 import { categoryIcon, roomIcon } from '../icons'
 import { Search, X } from 'lucide-react'
 import { Logo } from '../components/Logo'
+import { useStore } from '../store/useStore'
+import { formatPrice } from '../utils/format'
+import type { Product } from '../types'
 
 type Sort = 'popular' | 'price_asc' | 'price_desc' | 'discount'
 
@@ -38,6 +41,11 @@ export function CatalogPage() {
   }, [query, activeCat, sort])
 
   const searching = query.trim().length > 0
+
+  const recentlyViewed = useStore((s) => s.recentlyViewed)
+  const recentProducts = recentlyViewed
+    .map(getProduct)
+    .filter((p): p is Product => Boolean(p))
 
   return (
     <>
@@ -126,6 +134,34 @@ export function CatalogPage() {
                 )
               })}
             </div>
+            {/* Недавно смотрели */}
+            {recentProducts.length > 0 && (
+              <>
+                <div className="section-title">Недавно смотрели</div>
+                <div className="strip">
+                  {recentProducts.map((p) => (
+                    <button
+                      key={p.id}
+                      className="mini-card"
+                      onClick={() => {
+                        haptic('light')
+                        navigate(`/product/${p.id}`)
+                      }}
+                    >
+                      <img
+                        className="mini-card__img"
+                        src={p.image}
+                        alt={p.title}
+                        loading="lazy"
+                        onError={(e) => (e.currentTarget.style.visibility = 'hidden')}
+                      />
+                      <span className="mini-card__title">{p.title}</span>
+                      <span className="mini-card__price">{formatPrice(p.price)}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
 

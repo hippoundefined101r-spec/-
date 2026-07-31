@@ -7,6 +7,7 @@ interface AppState {
   cart: CartItem[]
   favorites: string[]
   orders: Order[]
+  recentlyViewed: string[]
 
   addToCart: (productId: string) => void
   removeFromCart: (productId: string) => void
@@ -17,6 +18,8 @@ interface AppState {
   isFavorite: (productId: string) => boolean
 
   addOrder: (order: Order) => void
+
+  addRecentlyViewed: (productId: string) => void
 }
 
 export const useStore = create<AppState>()(
@@ -25,6 +28,7 @@ export const useStore = create<AppState>()(
       cart: [],
       favorites: [],
       orders: [],
+      recentlyViewed: [],
 
       addToCart: (productId) =>
         set((state) => {
@@ -64,6 +68,14 @@ export const useStore = create<AppState>()(
       isFavorite: (productId) => get().favorites.includes(productId),
 
       addOrder: (order) => set((state) => ({ orders: [order, ...state.orders] })),
+
+      addRecentlyViewed: (productId) =>
+        set((state) => ({
+          recentlyViewed: [
+            productId,
+            ...state.recentlyViewed.filter((id) => id !== productId),
+          ].slice(0, 10),
+        })),
     }),
     { name: 'tehno-kg-store' },
   ),

@@ -40,6 +40,7 @@ type TelegramWebApp = {
   requestContact?: (cb: (ok: boolean, event?: unknown) => void) => void
   setHeaderColor?: (color: string) => void
   setBackgroundColor?: (color: string) => void
+  openTelegramLink?: (url: string) => void
 }
 
 declare global {
@@ -75,6 +76,16 @@ export function getTelegramUser(): TelegramUser | undefined {
 /** Сырая строка initData для авторизации на бэкенде (Authorization: tma <...>). */
 export function getInitDataRaw(): string {
   return tg?.initData ?? ''
+}
+
+/**
+ * Шаринг в Telegram: открывает диалог «отправить в чат» со ссылкой и текстом.
+ * Вне Telegram открывает t.me/share в новой вкладке.
+ */
+export function shareInTelegram(url: string, text: string) {
+  const shareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
+  if (tg?.openTelegramLink) tg.openTelegramLink(shareUrl)
+  else window.open(shareUrl, '_blank')
 }
 
 /**
