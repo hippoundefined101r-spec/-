@@ -1,0 +1,59 @@
+name: Deploy Mini App to GitHub Pages
+
+# Живёт на дефолтной ветке (окружение github-pages разрешает деплой только с неё),
+# но собирает актуальный код Mini App из ветки claude/laughing-volta-70jmpp.
+# Публикация — официальным механизмом deploy-pages (Source: GitHub Actions).
+# Адрес: https://hippoundefined101r-spec.github.io/-/
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [deploy-miniapp]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/laughing-volta-70jmpp
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install & build
+        run: |
+          npm install
+          npm run build
+
+      - name: Добавить соседний проект /fixapple/ (лежит в ветке gh-pages)
+        run: |
+          git fetch origin gh-pages || exit 0
+          git --work-tree=dist checkout origin/gh-pages -- fixapple || true
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
