@@ -1,0 +1,6 @@
+# Скопируйте в .dev.vars (файл в .gitignore) для локальной разработки `wrangler dev`.
+# В продакшене эти же значения задаются через `wrangler secret put <ИМЯ>`.
+TELEGRAM_BOT_TOKEN=123456:ABC-your-bot-token
+TELEGRAM_WEBHOOK_SECRET=random-string-min-32-chars
+ENCRYPTION_KEY=base64-32-bytes-see-readme
+ANTHROPIC_API_KEY=sk-ant-...

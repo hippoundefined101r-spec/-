@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.wrangler/
+# Локальные секреты для wrangler dev — НИКОГДА не коммитить
+.dev.vars
+.env
+.env.*

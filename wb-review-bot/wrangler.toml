@@ -1,0 +1,25 @@
+# wb-review-bot — Cloudflare Worker
+#
+# Секреты задаются ТОЛЬКО через `wrangler secret put` (никогда в этом файле):
+#   TELEGRAM_BOT_TOKEN      — токен бота от @BotFather
+#   TELEGRAM_WEBHOOK_SECRET — случайная строка для проверки X-Telegram-Bot-Api-Secret-Token
+#   ENCRYPTION_KEY          — 32 байта в base64 для AES-GCM шифрования WB-токенов
+#   ANTHROPIC_API_KEY       — ключ Anthropic API (генерация ответов, этап 4)
+
+name = "wb-review-bot"
+main = "src/index.ts"
+compatibility_date = "2026-07-01"
+
+# Опрос новых отзывов WB — каждые 10 минут (логика — этап 3)
+[triggers]
+crons = ["*/10 * * * *"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "wb_review_bot"
+# database_id подставить после `wrangler d1 create wb_review_bot` (см. README)
+database_id = "PLACEHOLDER_REPLACE_AFTER_D1_CREATE"
+migrations_dir = "migrations"
+
+[observability]
+enabled = true
