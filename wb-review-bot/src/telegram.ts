@@ -31,3 +31,12 @@ export function deleteMessage(env: Env, chatId: number, messageId: number) {
 export function answerCallbackQuery(env: Env, callbackQueryId: string, text?: string) {
   return callApi(env, 'answerCallbackQuery', { callback_query_id: callbackQueryId, text });
 }
+
+export function sendPhoto(env: Env, chatId: number, photoUrl: string, caption: string) {
+  return callApi(env, 'sendPhoto', {
+    chat_id: chatId,
+    photo: photoUrl,
+    caption,
+    parse_mode: 'HTML',
+  });
+}
