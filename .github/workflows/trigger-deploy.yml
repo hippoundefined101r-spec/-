@@ -1,0 +1,24 @@
+name: Trigger Pages deploy
+
+# Пуш в эту ветку запускает деплой-workflow на дефолтной ветке
+# (окружение github-pages разрешает деплой только с неё).
+
+on:
+  push:
+    branches:
+      - claude/laughing-volta-70jmpp
+    paths-ignore:
+      - 'server/**'
+      - 'SPEC.md'
+      - 'README.md'
+
+permissions:
+  actions: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh workflow run deploy-pages.yml --repo "$GITHUB_REPOSITORY" --ref claude/eager-cannon-s5s5he
+        env:
+          GH_TOKEN: ${{ github.token }}
