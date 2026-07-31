@@ -1,11 +1,8 @@
 name: Deploy Mini App to GitHub Pages
 
-# Собираем фронтенд (Telegram Mini App) и публикуем dist/ в ветку gh-pages.
-# Бэкенд (server/) сюда не входит — для первого теста фронт работает на демо-данных.
-#
-# Разовая настройка после первого успешного прогона:
-#   Settings → Pages → Build and deployment → Source: "Deploy from a branch"
-#   Branch: gh-pages / (root) → Save
+# Собираем фронтенд (Telegram Mini App) и публикуем dist/ на GitHub Pages
+# через официальный механизм deploy-pages (Source: GitHub Actions).
+# Бэкенд (server/) сюда не входит — фронт работает на демо-данных.
 # Адрес: https://hippoundefined101r-spec.github.io/-/
 
 on:
@@ -19,7 +16,9 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: pages
@@ -28,6 +27,9 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -40,11 +42,21 @@ jobs:
           npm install
           npm run build
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Добавить соседний проект /fixapple/ (лежит в ветке gh-pages)
+        run: |
+          git fetch origin gh-pages || exit 0
+          git --work-tree=dist checkout origin/gh-pages -- fixapple || true
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
-          # Не стирать соседние проекты на gh-pages (например, /fixapple/)
-          keep_files: true
+          enablement: true
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
